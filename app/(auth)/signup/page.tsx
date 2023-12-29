@@ -1,15 +1,15 @@
-"use client"
+"use client";
 import Link from "next/link";
 
 import Input from "@/components/Input";
 
 import envelope from "@/public/envelope.svg";
 import lock from "@/public/lock.svg";
+import { FormEventHandler } from "react";
 export default function Login() {
-  const handleSubmit = (e: any) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
   };
-
   return (
     <>
       <header>
