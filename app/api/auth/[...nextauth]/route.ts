@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import { Prisma } from "@prisma/client";
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
@@ -19,10 +19,7 @@ export const authOptions: NextAuthOptions = {
           email: string;
           password: string;
         };
-
-        if (email !== "john@gmail.com" || password !== "sabasaba"){
-            return null
-        }
+        
         return {id: "1", name: "saba", email: "john@gmail.com"}
       },
     }),

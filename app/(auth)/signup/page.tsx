@@ -1,14 +1,38 @@
 "use client";
 import Link from "next/link";
 
-import Input from "@/components/Input";
+import { Input } from "@/components/Input";
 
 import envelope from "@/public/envelope.svg";
 import lock from "@/public/lock.svg";
-import { FormEventHandler } from "react";
-export default function Login() {
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+import { FormEventHandler, useRef, useState } from "react";
+
+export default function Signup() {
+  const [isLoading, setIsLoading] = useState(false);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPassword = useRef();
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const json = await res.json();
+      console.log(json, "res");
+      if (!res.ok) {
+        console.log(json.statusText);
+      }
+    } catch (err) {
+      console.error(err)
+    }
   };
   return (
     <>
@@ -25,6 +49,7 @@ export default function Login() {
           type={"text"}
           label={"Email Address"}
           placeholder="e.g. alex@email.com"
+          ref={emailRef}
         />
         <Input
           name="password"
@@ -32,6 +57,7 @@ export default function Login() {
           type={"password"}
           label={"Create password"}
           placeholder="At least 8 characters"
+          ref={passwordRef}
         />
         <Input
           name="password"
@@ -39,6 +65,7 @@ export default function Login() {
           type={"password"}
           label={"Confirm password"}
           placeholder="At least 8 characters"
+          ref={confirmPassword}
         />
         <p className="text-xs text-gray">
           Password must contain at least 8 characters

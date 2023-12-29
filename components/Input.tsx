@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { useRef } from "react";
+import { ForwardedRef, Reference, forwardRef } from "react";
 interface Props {
   type: string;
   label: string;
@@ -8,19 +8,17 @@ interface Props {
   name: string;
   icon: any;
 }
-export default function Input({ name, type, label, placeholder, icon }: Props) {
-  const inputRef = useRef();
-
+export const Input = forwardRef(function({ name, type, label, placeholder, icon}: Props, ref: any) {
   const handleFocus = () => {
-    if (inputRef.current != null){
-        inputRef.current.style.border = "1px solid #633CFF"
-        inputRef.current.style.boxShadow = "0px 0px 32px 0px rgba(99, 60, 255, 0.25)"
+    if (ref.current != null){
+        ref.current.style.border = "1px solid #633CFF"
+        ref.current.style.boxShadow = "0px 0px 32px 0px rgba(99, 60, 255, 0.25)"
     }
   } 
   const handleBlur = () => {
-    if (inputRef.current != null){
-        inputRef.current.style.border = "1px solid #D9D9D9"
-        inputRef.current.style.boxShadow = ""
+    if (ref.current != null){
+        ref.current.style.border = "1px solid #D9D9D9"
+        ref.current.style.boxShadow = ""
     }
   } 
   return (
@@ -34,13 +32,13 @@ export default function Input({ name, type, label, placeholder, icon }: Props) {
           className="w-full h-12 bg-white justify-start px-10 border border-zinc-300 rounded-lg outline-none mt-1"
           type={type}
           name={name}
+          ref={ref}
           placeholder={placeholder}
           id={label}
-          ref={inputRef as any}
           onFocusCapture={handleFocus}
           onBlur={handleBlur}
         />
       </div>
     </div>
   );
-}
+})
