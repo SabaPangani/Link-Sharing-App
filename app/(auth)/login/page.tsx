@@ -6,10 +6,9 @@ import Input from "@/components/Input";
 import envelope from "@/public/envelope.svg";
 import lock from "@/public/lock.svg";
 
-import { FormEventHandler, useEffect } from "react";
+import { FormEventHandler } from "react";
 
 import { signIn } from "next-auth/react";
-import { env } from "process";
 
 export default function Login() {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -18,15 +17,12 @@ export default function Login() {
     const res = await signIn("credentials", {
       email: "john@gmail.com",
       password: "sabasaba",
-      callbackUrl: "/signup",
       redirect: false
     });
 
     console.log(res)
   };
-  useEffect(() => {
-    console.log(process);
-  }, []);
+
   return (
     <>
       <header>
