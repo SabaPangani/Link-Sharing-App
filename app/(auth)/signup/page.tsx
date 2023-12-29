@@ -9,16 +9,34 @@ import { FormEventHandler, useRef, useState } from "react";
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isWeakPassword, setisWeakPassword] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
-  const confirmPassword = useRef();
+  const confirmPasswordRef = useRef();
+  const passwordsDontMatchRef = useRef();
+
+  const isEmailValid = (email: string) => {
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setisWeakPassword(false);
+    passwordsDontMatchRef.current.style.display = "none";
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     try {
+      if (password !== confirmPasswordRef.current.value) {
+        passwordsDontMatchRef.current.style.display = "block";
+        throw new Error("Passwords don't match");
+      }
+      if (!isEmailValid(email)) {
+        throw new Error("Invalid email");
+      }
       const res = await fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -26,12 +44,18 @@ export default function Signup() {
       });
 
       const json = await res.json();
-      console.log(json, "res");
       if (!res.ok) {
-        console.log(json.statusText);
+        console.log(json.err);
+        if (json.err === "Weak password") {
+          setisWeakPassword(true);
+        }
+        setIsLoading(false);
       }
-    } catch (err) {
-      console.error(err)
+
+      setIsLoading(false);
+    } catch (err: any) {
+      setIsLoading(false);
+      console.error(err);
     }
   };
   return (
@@ -42,12 +66,13 @@ export default function Signup() {
           Let’s get you started sharing your links!
         </p>
       </header>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4 relative">
         <Input
           name="email"
           icon={envelope}
-          type={"text"}
-          label={"Email Address"}
+          type="email"
+          label="Email Address"
+          error="Invalid email"
           placeholder="e.g. alex@email.com"
           ref={emailRef}
         />
@@ -56,7 +81,8 @@ export default function Signup() {
           icon={lock}
           type={"password"}
           label={"Create password"}
-          placeholder="At least 8 characters"
+          error="Invalid password"
+          placeholder="Use strong password"
           ref={passwordRef}
         />
         <Input
@@ -64,11 +90,19 @@ export default function Signup() {
           icon={lock}
           type={"password"}
           label={"Confirm password"}
-          placeholder="At least 8 characters"
-          ref={confirmPassword}
+          error={"Passwords don't match"}
+          placeholder="Use strong password"
+          ref={confirmPasswordRef}
         />
+        {isWeakPassword && <p className="text-red text-sm">Weak password</p>}
+        <p
+          className="text-red text-sm hidden"
+          ref={passwordsDontMatchRef as any}
+        >
+          Passwords doesn't match
+        </p>
         <p className="text-xs text-gray">
-          Password must contain at least 8 characters
+          Password must contain at least 8 characters, symbol and number
         </p>
         <button className="btn-primary my-3" type="submit">
           Create new account
