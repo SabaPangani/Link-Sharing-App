@@ -61,8 +61,8 @@ export default function Signup() {
   return (
     <>
       <header>
-        <h1 className="text-[32px] font-bold text-dark">Create account</h1>
-        <p className="text-gray mb-8">
+        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl">Create account</h1>
+        <p className="text-gray mb-8 max-sm:text-sm">
           Let’s get you started sharing your links!
         </p>
       </header>
@@ -107,7 +107,7 @@ export default function Signup() {
         <button className="btn-primary my-3" type="submit">
           Create new account
         </button>
-        <p className="text-center text-gray">
+        <p className="text-center text-gray max-sm:px-6">
           Already have an account?{" "}
           <Link href={"/login"}>
             <span className="text-purple font-medium cursor-pointer">

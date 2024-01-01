@@ -10,7 +10,7 @@ import { FormEventHandler, useEffect, useRef, useState } from "react";
 
 import { signIn, useSession } from "next-auth/react";
 export default function Login() {
-  const {data: session, status} = useSession()
+  const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -20,13 +20,12 @@ export default function Login() {
     return re.test(email);
   };
 
-  console.log(session)
+  console.log(session, status);
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-
     try {
       if (!isEmailValid(email)) {
         throw new Error("Invalid email");
@@ -37,7 +36,7 @@ export default function Login() {
         redirect: false,
       });
 
-      console.log(res)
+      console.log(res);
       setIsLoading(false);
     } catch (err: any) {
       setIsLoading(false);
@@ -47,8 +46,8 @@ export default function Login() {
   return (
     <>
       <header>
-        <h1 className="text-[32px] font-bold text-dark">Login</h1>
-        <p className="text-gray mb-8">
+        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl">Login</h1>
+        <p className="text-gray mb-8 max-sm:text-sm">
           Add your details below to get back into the app
         </p>
       </header>
@@ -56,18 +55,18 @@ export default function Login() {
         <Input
           name="email"
           icon={envelope}
-          type={"email"}
-          label={"Email Address"}
-          error={"Invalid email"}
+          type="email"
+          label="Email Address"
+          error="Invalid email"
           placeholder="e.g. alex@email.com"
           ref={emailRef}
         />
         <Input
           name="password"
           icon={lock}
-          type={"password"}
-          label={"Password"}
-          error={"Invalid password"}
+          type="password"
+          label="Password"
+          error="Invalid password"
           placeholder="Enter your password"
           ref={passwordRef}
         />
@@ -77,7 +76,7 @@ export default function Login() {
         <Link href={"/signup"}>
           <p className="text-center text-gray">
             Don’t have an account?{" "}
-            <span className="text-purple font-medium cursor-pointer">
+            <span className="text-purple font-medium cursor-pointer max-sm:px-6">
               Create account
             </span>
           </p>

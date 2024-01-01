@@ -72,7 +72,7 @@ export const Input = forwardRef(function (
       <label htmlFor={label} className="text-xs">
         {label}
       </label>
-      <div className="flex flex-row items-center gap-3 w-[396px] relative">
+      <div className="flex flex-row items-center gap-3 w-full max-w-[396px] relative">
         <Image
           className="absolute left-3 top-1/2 -translate-y-1/2"
           src={icon}
