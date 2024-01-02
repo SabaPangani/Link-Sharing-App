@@ -1,46 +1,108 @@
-"use client"
+"use client";
 import Image from "next/image";
-import { useRef } from "react";
+import {
+  EventHandler,
+  ForwardedRef,
+  Reference,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 interface Props {
   type: string;
   label: string;
   placeholder: string;
   name: string;
   icon: any;
+  error: string;
 }
-export default function Input({ name, type, label, placeholder, icon }: Props) {
-  const inputRef = useRef();
+export const Input = forwardRef(function (
+  { name, type, label, placeholder, icon, error }: Props,
+  ref: any
+) {
+  const [text, setText] = useState("");
+  const errorMessageRef = useRef();
+  const emptyMessageRef = useRef();
 
-  const handleFocus = () => {
-    if (inputRef.current != null){
-        inputRef.current.style.border = "1px solid #633CFF"
-        inputRef.current.style.boxShadow = "0px 0px 32px 0px rgba(99, 60, 255, 0.25)"
+  const handleChange = (e: any) => {
+    e.target.setCustomValidity("");
+    setText(e.target.value);
+  };
+
+  const handleBlur = (e: any) => {
+    const isEmpty = e.target.validity.valueMissing;
+    const isTypeInvalid = e.target.validity.typeMismatch;
+
+    if (isEmpty) {
+      ref.current.style.border = "1px solid #FF3939";
+      ref.current.style.boxShadow = "none";
+      emptyMessageRef.current.style.display = "block";
+      ref.current.style.color = "#FF3939";
+    } else if (isTypeInvalid) {
+      ref.current.style.border = "1px solid #FF3939";
+      ref.current.style.boxShadow = "none";
+      errorMessageRef.current.style.display = "block";
+      ref.current.style.color = "#FF3939";
     }
-  } 
-  const handleBlur = () => {
-    if (inputRef.current != null){
-        inputRef.current.style.border = "1px solid #D9D9D9"
-        inputRef.current.style.boxShadow = ""
+  };
+
+  const handleInvalid = (e: any) => {
+    e.target.setCustomValidity(" ");
+    const isEmpty = e.target.validity.valueMissing;
+    ref.current.style.border = "1px solid #FF3939";
+    ref.current.style.boxShadow = "none";
+    if (isEmpty) {
+      emptyMessageRef.current.style.display = "block";
+    } else {
+      errorMessageRef.current.style.display = "block";
     }
-  } 
+  };
+
+  useEffect(() => {
+    ref.current.style.border = "";
+    ref.current.style.boxShadow = "";
+    ref.current.style.paddingRight = "";
+    emptyMessageRef.current.style.display = "";
+    errorMessageRef.current.style.display = "";
+    ref.current.style.color = "";
+  }, [text]);
   return (
     <div>
       <label htmlFor={label} className="text-xs">
         {label}
       </label>
-      <div className="flex flex-row items-center gap-3 w-[396px] relative">
-        <Image className="absolute left-3 top-1/2 -translate-y-1/2" src={icon} alt="envelope icon" />
+      <div className="flex flex-row items-center gap-3 w-full max-w-[396px] relative">
+        <Image
+          className="absolute left-3 top-1/2 -translate-y-1/2"
+          src={icon}
+          alt="envelope icon"
+        />
         <input
-          className="w-full h-12 bg-white justify-start px-10 border border-zinc-300 rounded-lg outline-none mt-1"
+          className="input"
           type={type}
           name={name}
+          ref={ref}
           placeholder={placeholder}
           id={label}
-          ref={inputRef as any}
-          onFocusCapture={handleFocus}
+          onChange={handleChange}
           onBlur={handleBlur}
+          onInvalid={handleInvalid}
+          required
         />
+        <span
+          className="text-red text-xs absolute right-3 hidden"
+          ref={errorMessageRef as any}
+        >
+          {error}
+        </span>
+        <span
+          className="text-red text-xs absolute right-3 hidden"
+          ref={emptyMessageRef as any}
+        >
+          Can't be empty
+        </span>
       </div>
     </div>
   );
-}
+});

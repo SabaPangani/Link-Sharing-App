@@ -17,12 +17,14 @@
 }
 
 body {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 
-
-@layer components{
-  .btn-primary{
-    @apply px-[27px] py-[11px] bg-purple rounded-lg text-white font-semibold hover:bg-purple-hover transition-all
+@layer components {
+  .btn-primary {
+    @apply px-[27px] py-[11px] bg-purple rounded-lg text-white font-semibold hover:bg-purple-hover transition-all;
+  }
+  .input {
+    @apply w-full h-12 bg-white justify-start px-10 border border-zinc-300 rounded-lg outline-none mt-1 transition-all focus:shadow-[0px_0px_32px_0px_rgba(99,60,255,0.25)] focus:border-2 focus:border-purple focus:outline-none;
   }
 }
