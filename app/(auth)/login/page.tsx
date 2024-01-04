@@ -46,7 +46,9 @@ export default function Login() {
   return (
     <>
       <header>
-        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl">Login</h1>
+        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl">
+          Login
+        </h1>
         <p className="text-gray mb-8 max-sm:text-sm">
           Add your details below to get back into the app
         </p>

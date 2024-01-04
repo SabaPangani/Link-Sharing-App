@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <html lang="en">
-        <body className={instrumentSans.className}>{children}</body>
+        <body className={`${instrumentSans.className} w-[1440px] mx-auto`}>{children}</body>
       </html>
     </AuthProvider>
   );

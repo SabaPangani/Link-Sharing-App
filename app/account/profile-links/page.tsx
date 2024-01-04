@@ -1,5 +1,11 @@
-export default function ProfileLinks() {
+import Links from "./Links";
+import PhoneMockup from "./PhoneMockup";
+
+export default function page() {
   return (
-    <div>ProfileLinks</div>
-  )
+    <div className="flex flex-row my-5 gap-x-5">
+      <PhoneMockup />
+      <Links />
+    </div>
+  );
 }

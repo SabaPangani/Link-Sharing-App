@@ -1,11 +1,9 @@
-import Links from "./Links";
-import PhoneMockup from "./PhoneMockup";
-
-export default function page() {
+import Image from "next/image";
+import empty from "@/public/empty.svg"
+export default function ProfileLinks() {
   return (
     <div>
-      <PhoneMockup />
-      <Links />
+      Profile
     </div>
   );
 }

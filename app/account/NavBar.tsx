@@ -5,7 +5,8 @@ import Image from "next/image";
 
 import logo from "@/public/logo.svg";
 import user from "@/public/user.svg";
-import link from "@/public/link.svg";
+import LinkSvg from "@/components/svgs/Link";
+import UserSvg from "@/components/svgs/User";
 import { usePathname } from "next/navigation";
 
 export default function NavBar() {
@@ -20,20 +21,32 @@ export default function NavBar() {
         <Link href="profile-links">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
-              pathName === "/account/profile-links" ? "bg-light-purple text-purple" : ""
+              pathName === "/account/profile-links"
+                ? "bg-light-purple text-purple"
+                : ""
             }`}
           >
-            <Image src={link} alt="Link" />
+            {pathName === "/account/profile-links" ? (
+              <LinkSvg fill="#633CFF" />
+            ) : (
+              <LinkSvg fill="#737373" />
+            )}
             <span>Links</span>
           </li>
         </Link>
         <Link href="profile-tab">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
-              pathName === "/account/profile-tab" ? "bg-light-purple text-purple" : ""
+              pathName === "/account/profile-tab"
+                ? "bg-light-purple text-purple"
+                : ""
             }`}
           >
-            <Image src={user} alt="User" />
+            {pathName === "/account/profile-tab" ? (
+              <UserSvg fill="#633CFF" />
+            ) : (
+              <UserSvg fill="#737373" />
+            )}
             <span>Profile Details</span>
           </li>
         </Link>

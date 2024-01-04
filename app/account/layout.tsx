@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import NavBar from "./NavBar";
-import Links from "./profile-tab/Links";
+import Links from "./profile-links/Links";
 
 export const metadata: Metadata = {
   title: "Account",
