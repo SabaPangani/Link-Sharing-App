@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 import logo from "@/public/logo.svg";
-import user from "@/public/user.svg";
 import LinkSvg from "@/components/svgs/Link";
 import UserSvg from "@/components/svgs/User";
 import { usePathname } from "next/navigation";
@@ -51,7 +50,7 @@ export default function NavBar() {
           </li>
         </Link>
       </ul>
-      <button className="rounded-lg border border-purple px-8 py-3 text-purple font-semibold">
+      <button className="btn-secondary">
         Preview
       </button>
     </nav>

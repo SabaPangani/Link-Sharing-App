@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import {
-  EventHandler,
-  ForwardedRef,
-  Reference,
   forwardRef,
   useEffect,
   useRef,
@@ -68,16 +65,17 @@ export const Input = forwardRef(function (
     ref.current.style.color = "";
   }, [text]);
   return (
-    <div>
-      <label htmlFor={label} className="text-xs">
+    <div className="w-full">
+      <label htmlFor={label} className="text-sm">
         {label}
       </label>
-      <div className="flex flex-row items-center gap-3 w-full max-w-[396px] relative">
+      <div className="flex flex-row items-center gap-3 relative">
         <Image
-          className="absolute left-3 top-1/2 -translate-y-1/2"
+          className="absolute left-3 top-[54%] -translate-y-1/2"
           src={icon}
           alt="envelope icon"
         />
+
         <input
           className="input"
           type={type}
