@@ -1,5 +1,6 @@
-export default interface Link{
-    platform: string,
-    image: HTMLImageElement
-    link: string
+export default interface Link {
+  id: string;
+  platform: string;
+  url: string;
+  order: string;
 }

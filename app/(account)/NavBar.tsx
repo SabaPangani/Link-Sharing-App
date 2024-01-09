@@ -20,12 +20,12 @@ export default function NavBar() {
         <Link href="profile-links">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
-              pathName === "/account/profile-links"
+              pathName === "/profile-links"
                 ? "bg-light-purple text-purple"
                 : ""
             }`}
           >
-            {pathName === "/account/profile-links" ? (
+            {pathName === "/profile-links" ? (
               <LinkSvg fill="#633CFF" />
             ) : (
               <LinkSvg fill="#737373" />
@@ -36,12 +36,12 @@ export default function NavBar() {
         <Link href="profile-tab">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
-              pathName === "/account/profile-tab"
+              pathName === "/profile-tab"
                 ? "bg-light-purple text-purple"
                 : ""
             }`}
           >
-            {pathName === "/account/profile-tab" ? (
+            {pathName === "/profile-tab" ? (
               <UserSvg fill="#633CFF" />
             ) : (
               <UserSvg fill="#737373" />

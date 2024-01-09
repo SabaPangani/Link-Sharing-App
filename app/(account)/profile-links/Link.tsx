@@ -6,6 +6,7 @@ import link from "@/public/link.svg";
 import down from "@/public/down.svg";
 import up from "@/public/up.svg";
 import { useRef, useState } from "react";
+import Link from "@/app/shared/types/Link";
 const platforms = [
   "Github",
   "Frontend Mentor",
@@ -23,20 +24,40 @@ const platforms = [
   "Stack Overflow",
 ];
 
-export default function Link() {
+interface Props {
+  links: Link[];
+  id: string;
+  order: number;
+  onPlatformDelete: (id: string) => void;
+}
+export default function Link({ links, id, order, onPlatformDelete }: Props) {
   const linkRef = useRef();
   const [platform, setPlatform] = useState("GitHub");
   const [open, setOpen] = useState(false);
+  const platformIcon = require(`@/public/platform-icons/icon-${platform
+    .toLowerCase()
+    .replace(" ", "")
+    .replace(".", "")}.svg`);
 
-  const platformIcon = require(`@/public/platform-icons/icon-${platform.toLocaleLowerCase()}.svg`);
+  const handlePlatformChange = (platform: string) => {
+    setPlatform(platform);
+    links.find((link) => link.id === id)!.platform = platform;
+    setOpen(false);
+  };
 
   return (
-    <div className="bg-[#FAFAFA] flex flex-col p-5 gap-y-2">
+    <div className="bg-[#FAFAFA] flex flex-col p-5 gap-y-2 rounded-xl">
       <header className="flex flex-row justify-between text-gray">
         <h1 className="font-bold">
-          <span className="font-medium">=</span> Link #1
+          <span className="font-medium">=</span> Link #{order}
         </h1>
-        <button>Remove</button>
+        <button
+          onClick={() => {
+            onPlatformDelete(id);
+          }}
+        >
+          Remove
+        </button>
       </header>
       <div className="flex flex-col gap-y-3">
         <div className="w-full relative">
@@ -70,11 +91,14 @@ export default function Link() {
                   return (
                     <li
                       key={platform}
-                      className="flex flex-row gap-x-3 text-dark border-zinc-300 py-3 border-b border-solid"
+                      className="flex flex-row gap-x-3 text-dark border-zinc-300 py-3 border-b border-solid cursor-pointer"
+                      onClick={(e) => {
+                        handlePlatformChange(platform);
+                      }}
                     >
                       <Image
                         src={require(`@/public/platform-icons/icon-${platform
-                          .toLocaleLowerCase()
+                          .toLowerCase()
                           .replace(" ", "")
                           .replace(".", "")}.svg`)}
                         width={18}
@@ -93,7 +117,7 @@ export default function Link() {
           <Input
             type="text"
             name="link"
-            error="Invalid last name"
+            error="Invalid link"
             ref={linkRef}
             placeholder="e.g. https://www.github.com/johnappleseed"
             label="Link"
