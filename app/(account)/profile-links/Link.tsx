@@ -6,7 +6,8 @@ import link from "@/public/link.svg";
 import down from "@/public/down.svg";
 import up from "@/public/up.svg";
 import { useRef, useState } from "react";
-import Link from "@/app/shared/types/Link";
+import { ILink } from "@/app/shared/types/Link";
+import { useLinks } from "@/app/hooks/useLinks";
 const platforms = [
   "Github",
   "Frontend Mentor",
@@ -25,13 +26,12 @@ const platforms = [
 ];
 
 interface Props {
-  links: Link[];
   id: string;
   order: number;
-  onPlatformDelete: (id: string) => void;
 }
-export default function Link({ links, id, order, onPlatformDelete }: Props) {
+export default function Link({ id, order }: Props) {
   const linkRef = useRef();
+  const { updateLink, removeLink } = useLinks()!;
   const [platform, setPlatform] = useState("GitHub");
   const [open, setOpen] = useState(false);
   const platformIcon = require(`@/public/platform-icons/icon-${platform
@@ -41,7 +41,7 @@ export default function Link({ links, id, order, onPlatformDelete }: Props) {
 
   const handlePlatformChange = (platform: string) => {
     setPlatform(platform);
-    links.find((link) => link.id === id)!.platform = platform;
+    updateLink(id, platform);
     setOpen(false);
   };
 
@@ -53,7 +53,7 @@ export default function Link({ links, id, order, onPlatformDelete }: Props) {
         </h1>
         <button
           onClick={() => {
-            onPlatformDelete(id);
+            removeLink(id);
           }}
         >
           Remove

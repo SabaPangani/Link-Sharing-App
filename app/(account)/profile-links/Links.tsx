@@ -3,36 +3,12 @@
 import Image from "next/image";
 import empty from "@/public/empty.svg";
 
-import Link from "@/app/shared/types/Link";
-import { useState } from "react";
+import { ILink } from "@/app/shared/types/Link";
 import LinkComponent from "./Link";
-import { v4 as uuid } from "uuid";
-import { useSession } from "next-auth/react";
+import { useLinks } from "@/app/hooks/useLinks";
 
 export default function Links() {
-  const [links, setLinks] = useState<Link[]>([]);
-  const { data: session, status } = useSession();
-  console.log(session);
-  const handleAddLink = () => {
-    if (links.length < 5) {
-      const newLink = {
-        id: uuid(),
-        platform: "GitHub",
-        url: "",
-        order: (links.length + 1).toString(),
-        userId: session?.user?.email,
-      } as Link;
-      setLinks((prev) => [...prev, newLink]);
-    }
-  };
-
-  const handlePlatformDelete = (id: string) => {
-    setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
-    let l = links.length;
-    for (let i = 1; i < l; i++) {
-      links[i].order = i;
-    }
-  };
+  const { links, addLinks } = useLinks()!;
 
   const handleSubmit = async () => {
     const res = await fetch("/api/links", {
@@ -54,13 +30,20 @@ export default function Links() {
         </p>
       </header>
       {links.length !== 5 ? (
-        <button className="btn-secondary" onClick={handleAddLink}>
+        <button
+          className="btn-secondary"
+          onClick={() => {
+            addLinks();
+          }}
+        >
           + Add new link
         </button>
       ) : (
         <button
           className="btn-secondary disabled:bg-light-gray disabled:text-gray disabled:border-gray"
-          onClick={handleAddLink}
+          onClick={() => {
+            addLinks();
+          }}
           disabled
         >
           + Add new link
@@ -68,14 +51,9 @@ export default function Links() {
       )}
       {links.length >= 1 ? (
         <ul className="flex flex-col gap-y-5">
-          {links.map((link) => (
+          {links.map((link: ILink) => (
             <li key={link.id}>
-              <LinkComponent
-                links={links}
-                id={link.id}
-                onPlatformDelete={handlePlatformDelete}
-                order={link.order}
-              />
+              <LinkComponent id={link.id} order={link.order} />
             </li>
           ))}
         </ul>
