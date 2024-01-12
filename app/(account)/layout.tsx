@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import NavBar from "./NavBar";
-import Links from "./profile-tab/Links";
-
+import { LinkProvider } from "../store/linksContext";
 export const metadata: Metadata = {
   title: "Account",
   description: "Customize links",

@@ -21,13 +21,13 @@ export async function POST(req: Request) {
     const result = await prisma.user.create({
       data: {
         ...data,
-        password: hashedPassword
+        password: hashedPassword,
       },
     });
 
-    return NextResponse.json({ result }, {status: 200});
+    return NextResponse.json({ result }, { status: 200 });
   } catch (err: any) {
-    console.log(err.message)
-    return NextResponse.json({ err: err.message }, {status: 400});
+    console.log(err.message);
+    return NextResponse.json({ err: err.message }, { status: 400 });
   }
 }
