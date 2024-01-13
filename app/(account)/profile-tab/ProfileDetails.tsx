@@ -11,7 +11,7 @@ export default function ProfileDetails() {
   const lName = useRef();
   const email = useRef();
   return (
-    <div className="bg-white w-full rounded-xl p-10 pb-3">
+    <div className="bg-white w-full rounded-xl p-10 pb-3 relative">
       <header className="mb-8">
         <h1 className="text-[32px] font-bold">Profile Details</h1>
         <p className="text-gray">
@@ -58,9 +58,12 @@ export default function ProfileDetails() {
             />
           </div>
         </div>
-        <div className="w-full mt-20 h-[94px] bg-white py-[40px] flex justify-end items-center">
-          <button className="btn-primary">Save</button>
-        </div>
+        <button
+          className="btn-primary absolute right-10 bottom-5"
+          type="submit"
+        >
+          Save
+        </button>
       </form>
     </div>
   );

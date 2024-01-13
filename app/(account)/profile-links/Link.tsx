@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { Input } from "@/components/Input";
 import link from "@/public/link.svg";
 import down from "@/public/down.svg";
 import up from "@/public/up.svg";
 import { useRef, useState } from "react";
-import { ILink } from "@/app/shared/types/Link";
 import { useLinks } from "@/app/hooks/useLinks";
+import { LinkInput } from "./LinkInput";
 const platforms = [
   "Github",
   "Frontend Mentor",
@@ -30,8 +29,8 @@ interface Props {
   order: number;
 }
 export default function Link({ id, order }: Props) {
-  const linkRef = useRef();
-  const { updateLink, removeLink } = useLinks()!;
+  const linkRef = useRef() as React.Ref<HTMLInputElement>;
+  const { updateLink, removeLink, links } = useLinks()!;
   const [platform, setPlatform] = useState("GitHub");
   const [open, setOpen] = useState(false);
   const platformIcon = require(`@/public/platform-icons/icon-${platform
@@ -114,14 +113,15 @@ export default function Link({ id, order }: Props) {
           )}
         </div>
         <div>
-          <Input
-            type="text"
+          <LinkInput
+            type="url"
             name="link"
             error="Invalid link"
             ref={linkRef}
             placeholder="e.g. https://www.github.com/johnappleseed"
             label="Link"
             icon={link}
+            id={id}
           />
         </div>
       </div>

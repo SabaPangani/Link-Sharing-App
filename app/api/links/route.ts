@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const data = await req.json();
-    console.log(data);
+    const { links } = await req.json();
+    console.log(links);
     const result = await prisma.link.createMany({
-      data,
+      data: links,
     });
 
     return NextResponse.json({ result }, { status: 200 });

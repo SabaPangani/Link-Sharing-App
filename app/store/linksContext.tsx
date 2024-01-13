@@ -16,11 +16,11 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   const addLinks = () => {
     if (links.length < 5) {
       const newLink = {
-        id: uuid(),
+        id: uuid().toString(),
         platform: "GitHub",
         url: "",
-        order: links.length + 1,
         userId: session?.user?.email,
+        order: links.length + 1,
       } as ILink;
       setLinks((prev) => [...prev, newLink]);
     }

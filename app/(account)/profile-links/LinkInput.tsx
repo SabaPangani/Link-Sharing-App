@@ -1,4 +1,5 @@
 "use client";
+import { useLinks } from "@/app/hooks/useLinks";
 import Image from "next/image";
 import { forwardRef, useEffect, useRef, useState } from "react";
 interface Props {
@@ -8,18 +9,24 @@ interface Props {
   name: string;
   icon: any;
   error: string;
+  id: string;
 }
-export const Input = forwardRef(function (
-  { name, type, label, placeholder, icon, error }: Props,
+export const LinkInput = forwardRef(function (
+  { name, type, label, placeholder, icon, error, id }: Props,
   ref: React.Ref<HTMLInputElement>
 ) {
-  const [text, setText] = useState("");
+  const { links } = useLinks()!;
+  const [url, setUrl] = useState("");
   const errorMessageRef = useRef();
   const emptyMessageRef = useRef();
 
   const handleChange = (e: any) => {
     e.target.setCustomValidity("");
-    setText(e.target.value);
+    setUrl(e.target.value);
+    const link = links.find((link) => link.id === id);
+    console.log(link);
+    link!.url = url;
+    console.log(link);
   };
 
   const handleBlur = (e: any) => {
@@ -56,7 +63,7 @@ export const Input = forwardRef(function (
     emptyMessageRef.current.style.display = "";
     errorMessageRef.current.style.display = "";
     ref.current.style.color = "";
-  }, [text]);
+  }, [url]);
 
   return (
     <div className="w-full">
@@ -67,7 +74,7 @@ export const Input = forwardRef(function (
         <Image
           className="absolute left-3 top-[54%] -translate-y-1/2"
           src={icon}
-          alt="envelope icon"
+          alt="link icon"
         />
 
         <input
