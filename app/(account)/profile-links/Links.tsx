@@ -7,10 +7,12 @@ import { ILink } from "@/app/shared/types/Link";
 import LinkComponent from "./Link";
 import { useLinks } from "@/app/hooks/useLinks";
 import { FormEvent, useState } from "react";
+import Loader from "@/components/Loader";
 
 export default function Links() {
-  const { links, addLinks } = useLinks()!;
+  const { links, addLinks, isLoading: loading } = useLinks()!;
   const [isLoading, setIsLoading] = useState(false);
+  const [isDuplicate, setIsDuplicate] = useState(false);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -26,6 +28,7 @@ export default function Links() {
       return false;
     });
 
+    setIsDuplicate(hasDuplicate);
     if (hasDuplicate) {
       return;
     }
@@ -33,7 +36,7 @@ export default function Links() {
     const res = await fetch("/api/links", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({links}),
+      body: JSON.stringify({ links }),
     });
 
     const json = await res.json();
@@ -76,11 +79,18 @@ export default function Links() {
           handleSubmit(e);
         }}
       >
-        {links.length >= 1 ? (
+        {loading ? (
+          <Loader />
+        ) : links.length >= 1 ? (
           <ul className="flex flex-col gap-y-5">
             {links.map((link: ILink) => (
               <li key={link.id}>
-                <LinkComponent id={link.id} order={link.order} />
+                <LinkComponent
+                  id={link.id}
+                  url={link.url}
+                  platform={link.platform}
+                  order={link.order}
+                />
               </li>
             ))}
           </ul>
@@ -88,7 +98,7 @@ export default function Links() {
           <div className="flex flex-col gap-y-8 bg-[#FAFAFA] items-center text-center p-20 rounded-xl">
             <Image src={empty} alt="Empty image" />
 
-            <h1 className="text-[32px] font-bold">Let's get you starterd</h1>
+            <h1 className="text-[32px] font-bold">Let's get you started</h1>
             <p className="text-gray leading-6 w-[488px]">
               Use the “Add new link” button to get started. Once you have more
               than one link, you can reorder and edit them. We’re here to help
@@ -100,7 +110,7 @@ export default function Links() {
         <button
           className="btn-primary absolute right-10 bottom-5 "
           type="submit"
-          disabled={isLoading || links.length <= 0}
+          disabled={links.length <= 0 || isLoading}
         >
           Save
         </button>

@@ -10,13 +10,14 @@ interface Props {
   icon: any;
   error: string;
   id: string;
+  value: string;
 }
 export const LinkInput = forwardRef(function (
-  { name, type, label, placeholder, icon, error, id }: Props,
+  { name, type, label, placeholder, icon, error, id, value }: Props,
   ref: React.Ref<HTMLInputElement>
 ) {
   const { links } = useLinks()!;
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(value || "");
   const errorMessageRef = useRef();
   const emptyMessageRef = useRef();
 
@@ -84,6 +85,7 @@ export const LinkInput = forwardRef(function (
           ref={ref}
           placeholder={placeholder}
           id={label}
+          defaultValue={value}
           onChange={handleChange}
           onBlur={handleBlur}
           onInvalid={handleInvalid}

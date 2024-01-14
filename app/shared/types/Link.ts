@@ -7,6 +7,7 @@ export interface ILink {
 
 export type LinkContextType = {
   links: ILink[];
+  isLoading: boolean;
   addLinks: () => void;
   getLinks: () => void;
   updateLink: (id: string, platform: string) => void;

@@ -7,6 +7,7 @@ import up from "@/public/up.svg";
 import { useRef, useState } from "react";
 import { useLinks } from "@/app/hooks/useLinks";
 import { LinkInput } from "./LinkInput";
+import { ILink } from "@/app/shared/types/Link";
 const platforms = [
   "Github",
   "Frontend Mentor",
@@ -24,14 +25,11 @@ const platforms = [
   "Stack Overflow",
 ];
 
-interface Props {
-  id: string;
-  order: number;
-}
-export default function Link({ id, order }: Props) {
+
+export default function Link({ id, platform, url, order }: ILink) {
   const linkRef = useRef() as React.Ref<HTMLInputElement>;
-  const { updateLink, removeLink, links } = useLinks()!;
-  const [platform, setPlatform] = useState("GitHub");
+  const { updateLink, removeLink, isLoading } = useLinks()!;
+  const [platf, setPlatform] = useState(platform || "Github");
   const [open, setOpen] = useState(false);
   const platformIcon = require(`@/public/platform-icons/icon-${platform
     .toLowerCase()
@@ -122,6 +120,7 @@ export default function Link({ id, order }: Props) {
             label="Link"
             icon={link}
             id={id}
+            value={url}
           />
         </div>
       </div>
