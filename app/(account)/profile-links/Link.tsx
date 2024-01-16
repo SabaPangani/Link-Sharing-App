@@ -28,7 +28,7 @@ const platforms = [
 
 export default function Link({ id, platform, url, order }: ILink) {
   const linkRef = useRef() as React.Ref<HTMLInputElement>;
-  const { updateLink, removeLink, isLoading } = useLinks()!;
+  const { updateLink, removeLink } = useLinks()!;
   const [platf, setPlatform] = useState(platform || "Github");
   const [open, setOpen] = useState(false);
   const platformIcon = require(`@/public/platform-icons/icon-${platform
@@ -72,7 +72,7 @@ export default function Link({ id, platform, url, order }: ILink) {
                 height={18}
                 alt="Platform icon"
               />
-              <span className="text-dark font-medium">{platform}</span>
+              <span className="text-dark font-medium">{platf}</span>
             </div>
             {open ? (
               <Image src={up} alt="Arrow up" />

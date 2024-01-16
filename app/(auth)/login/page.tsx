@@ -12,8 +12,8 @@ import { signIn, useSession } from "next-auth/react";
 export default function Login() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef() as React.Ref<HTMLInputElement>;
+  const passwordRef = useRef() as React.Ref<HTMLInputElement>;
 
   console.log(session, status);
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -64,9 +64,15 @@ export default function Login() {
           placeholder="Enter your password"
           ref={passwordRef}
         />
-        <button className="btn-primary my-3" type="submit" disabled={isLoading}>
-          Login
-        </button>
+        <Link href={"profile-links"}>
+          <button
+            className="btn-primary my-3"
+            type="submit"
+            disabled={isLoading}
+          >
+            Login
+          </button>
+        </Link>
         <Link href={"/signup"}>
           <p className="text-center text-gray">
             Don’t have an account?{" "}

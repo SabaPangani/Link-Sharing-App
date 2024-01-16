@@ -57,7 +57,9 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
   const updateLink = async (id: string, platform: string) => {
-    links.find((link) => link.id === id)!.platform = platform;
+    setLinks((prevLinks) =>
+      prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
+    );
   };
   const removeLink = async (id: string) => {
     try {
