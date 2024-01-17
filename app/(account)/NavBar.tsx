@@ -20,9 +20,7 @@ export default function NavBar() {
         <Link href="profile-links">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
-              pathName === "/profile-links"
-                ? "bg-light-purple text-purple"
-                : ""
+              pathName === "/profile-links" ? "bg-light-purple text-purple" : ""
             }`}
           >
             {pathName === "/profile-links" ? (
@@ -36,9 +34,7 @@ export default function NavBar() {
         <Link href="profile-tab">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
-              pathName === "/profile-tab"
-                ? "bg-light-purple text-purple"
-                : ""
+              pathName === "/profile-tab" ? "bg-light-purple text-purple" : ""
             }`}
           >
             {pathName === "/profile-tab" ? (
@@ -50,9 +46,9 @@ export default function NavBar() {
           </li>
         </Link>
       </ul>
-      <button className="btn-secondary">
-        Preview
-      </button>
+      <Link href={"preview"}>
+        <button className="btn-secondary">Preview</button>
+      </Link>
     </nav>
   );
 }

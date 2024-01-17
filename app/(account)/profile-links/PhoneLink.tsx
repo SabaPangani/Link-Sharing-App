@@ -26,7 +26,8 @@ export default function PhoneLink({ platform }: { platform: string }) {
 
   return (
     <div
-      className={`w-[237px] flex flex-row justify-between items-center px-4 py-2.5 rounded-lg bg-[${bgVariants[platformClass]}]`}
+      style={{ backgroundColor: bgVariants[platformClass] }}
+      className={`w-[237px] flex flex-row justify-between items-center px-4 py-2.5 rounded-lg`}
     >
       <div className={`flex flex-row items-center gap-x-2`}>
         <Image

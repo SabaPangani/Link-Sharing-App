@@ -8,6 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        appear: "modalAnimation",
+      },
+      keyframes: {
+        modalAnimation: {
+          "0%, 100%": {
+            transform: "translateY(50px)",
+            opacity: "0",
+          },
+          "50%": {
+            transform: "translateY(100)",
+            opacity: "1",
+          },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

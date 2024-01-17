@@ -1,3 +1,4 @@
+import ResponseModal from "@/components/ResponseModal";
 import Links from "./Links";
 import PhoneMockup from "./PhoneMockup";
 

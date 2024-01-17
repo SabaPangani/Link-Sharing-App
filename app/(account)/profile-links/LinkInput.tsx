@@ -16,18 +16,19 @@ export const LinkInput = forwardRef(function (
   { name, type, label, placeholder, icon, error, id, value }: Props,
   ref: React.Ref<HTMLInputElement>
 ) {
-  const { links } = useLinks()!;
+  const { links, setIsEdited } = useLinks()!;
   const [url, setUrl] = useState(value || "");
   const errorMessageRef = useRef();
   const emptyMessageRef = useRef();
 
-  const handleChange = (e: any) => {
+  const handleInput = (e: any) => {
     e.target.setCustomValidity("");
-    setUrl(e.target.value);
+    const inputValue = e.target.value;
+    setUrl(inputValue);
     const link = links.find((link) => link.id === id);
-    console.log(link);
-    link!.url = url;
-    console.log(link);
+    link!.url = inputValue;
+    console.log(inputValue);
+    setIsEdited(true);
   };
 
   const handleBlur = (e: any) => {
@@ -77,7 +78,6 @@ export const LinkInput = forwardRef(function (
           src={icon}
           alt="link icon"
         />
-
         <input
           className="input"
           type={type}
@@ -86,9 +86,9 @@ export const LinkInput = forwardRef(function (
           placeholder={placeholder}
           id={label}
           defaultValue={value}
-          onChange={handleChange}
           onBlur={handleBlur}
           onInvalid={handleInvalid}
+          onInput={handleInput}
           required
         />
         <span

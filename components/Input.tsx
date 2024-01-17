@@ -19,7 +19,9 @@ export const Input = forwardRef(function (
 
   const handleChange = (e: any) => {
     e.target.setCustomValidity("");
-    setText(e.target.value);
+    const inputValue = e.target.value;
+    setText(inputValue);
+    console.log(inputValue)
   };
 
   const handleBlur = (e: any) => {
@@ -77,11 +79,13 @@ export const Input = forwardRef(function (
           ref={ref}
           placeholder={placeholder}
           id={label}
+          defaultValue={text}
           onChange={handleChange}
           onBlur={handleBlur}
           onInvalid={handleInvalid}
           required
         />
+
         <span
           className="text-red text-xs absolute right-3 hidden"
           ref={errorMessageRef as any}
