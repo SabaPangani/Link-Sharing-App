@@ -64,15 +64,11 @@ export default function Login() {
           placeholder="Enter your password"
           ref={passwordRef}
         />
-        <Link href={"profile-links"}>
-          <button
-            className="btn-primary my-3"
-            type="submit"
-            disabled={isLoading}
-          >
-            Login
-          </button>
-        </Link>
+        {/* <Link href={"profile-links"}> */}
+        <button className="btn-primary my-3" type="submit" disabled={isLoading}>
+          Login
+        </button>
+        {/* </Link> */}
         <Link href={"/signup"}>
           <p className="text-center text-gray">
             Don’t have an account?{" "}

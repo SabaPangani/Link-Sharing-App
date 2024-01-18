@@ -59,7 +59,7 @@ export default function ProfileDetails() {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          uId: session?.user?.email,
+          uId: session?.user?.id,
           fName,
           lName,
           email,

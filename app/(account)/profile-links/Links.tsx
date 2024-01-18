@@ -9,11 +9,15 @@ import { useLinks } from "@/app/hooks/useLinks";
 import { FormEvent, useState } from "react";
 import Loader from "@/components/Loader";
 import ResponseModal from "@/components/ResponseModal";
+import { useSession } from "next-auth/react";
 
 export default function Links() {
   const { links, addLinks, isLoading: loading, isEdited } = useLinks()!;
   const [isLoading, setIsLoading] = useState(false);
   const [isDuplicate, setIsDuplicate] = useState(false);
+  const { data: session, status } = useSession();
+  console.log(session, status);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
