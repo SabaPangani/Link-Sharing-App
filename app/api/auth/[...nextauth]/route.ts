@@ -2,14 +2,18 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
+
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: async ({ session, token }) => {
-      if (session?.user) {
-        session.user.email = token.sub;
+    session: async ({ session, user }) => {
+      if (user && session?.user) {
+        session.user.id = user.id;
+        session.user.lastName = user.lastName;
+        session.user.image = user.image || null; // Ensure image is not undefined
       }
       return session;
     },
+
     jwt: async ({ user, token }) => {
       if (user) {
         token.uid = user.id;
@@ -41,21 +45,30 @@ export const authOptions: NextAuthOptions = {
           const user = await prisma.user.findFirst({
             where: { email },
           });
-          if (typeof user?.password !== "string") {
-            throw new Error("User password is not defined");
+
+          if (!user || typeof user.password !== "string") {
+            throw new Error("Invalid credentials");
           }
+
           const isPasswordCorrect = await bcrypt.compare(
             password,
-            user?.password
+            user.password
           );
 
           if (isPasswordCorrect) {
-            console.log(user);
-            return user;
+            return {
+              id: user.id,
+              name: user.name,
+              lastName: user.lastName,
+              email: user.email,
+              image: user.image || null, // Ensure image is not undefined
+            };
           }
+
           return null;
         } catch (err) {
-          console.log(err);
+          console.error(err);
+          return null;
         }
       },
     }),
@@ -64,5 +77,6 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
 };
+
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

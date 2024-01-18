@@ -32,7 +32,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
         id: uuid().toString(),
         platform: "GitHub",
         url: "",
-        userId: session?.user?.email,
+        userId: session?.user?.id,
         order: links.length + 1,
       } as ILink;
       setLinks((prev) => [...prev, newLink]);

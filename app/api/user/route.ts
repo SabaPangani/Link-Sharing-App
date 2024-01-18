@@ -21,9 +21,10 @@ export async function PUT(req: Request) {
 
 export async function GET() {
   const session = await getServerSession(authOptions);
+  console.log(session?.user.id, " id")
   try {
     const result = await prisma.user.findUnique({
-      where: { id: session?.user?.email! },
+      where: { id: session?.user?.id! },
     });
 
     return NextResponse.json({ result }, { status: 200 });
