@@ -5,10 +5,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { KeyValuePair } from "tailwindcss/types/config";
 import arrow from "@/public/arrowRight.svg";
+import { useSession } from "next-auth/react";
 
 export default function Card() {
   const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState([]) as any;
+  // const [userData, setUserData] = useState([]) as any;
+  const { data: session } = useSession();
   const { links } = useLinks()!;
 
   const bgVariants = {
@@ -26,45 +28,47 @@ export default function Card() {
     stackoverflow: "#EC7100",
     twitch: "#EE3FC8",
   } as KeyValuePair;
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setIsLoading(true);
 
-        const res = await fetch("/api/user");
-        if (!res.ok) {
-          throw new Error(`Failed to fetch data Status: ${res.status}`);
-        }
+  //       const res = await fetch("/api/user");
+  //       if (!res.ok) {
+  //         throw new Error(`Failed to fetch data Status: ${res.status}`);
+  //       }
 
-        const { result } = await res.json();
+  //       const { result } = await res.json();
 
-        console.log(result)
-        const publicPath = `/public/${result.image}`;
+  //       console.log(result)
+  //       const publicPath = `/public/${result.image}`;
 
-        setUserData({ ...result, image: publicPath });
-        console.log(userData.image);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+  //       setUserData({ ...result, image: publicPath });
+  //       console.log(userData.image);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
 
-        setIsLoading(false);
-      }
-    };
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="flex flex-col w-full max-w-[354px] px-12 py-16 bg-white absolute left-1/2 top-[20%] -translate-x-1/2 rounded-3xl">
       <header className="flex flex-col items-center justify-center">
-        <Image
-          src={userData.image}
+        {/* <Image
+          src={session?.user.image as any}
           alt="Profile picture"
           width={30}
           height={30}
-        />
-        <h1 className="text-dark text-[32px] font-semibold">{userData.name}</h1>
-        <p className="text-gray ">{userData.email}</p>
+        /> */}
+        <h1 className="text-dark text-[32px] font-semibold">
+          {session?.user.name}
+        </h1>
+        <p className="text-gray ">{session?.user.email}</p>
       </header>
       {
         <ul className="flex flex-col gap-[20px] justify-center items-center mt-16">

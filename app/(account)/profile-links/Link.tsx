@@ -27,7 +27,7 @@ const platforms = [
 
 
 export default function Link({ id, platform, url, order }: ILink) {
-  const linkRef = useRef() as React.Ref<HTMLInputElement>;
+  const linkRef = useRef() as React.ForwardedRef<HTMLInputElement>;
   const { updateLink, removeLink } = useLinks()!;
   const [platf, setPlatform] = useState(platform || "Github");
   const [open, setOpen] = useState(false);

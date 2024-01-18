@@ -1,5 +1,6 @@
 "use client";
 
+
 import Image from "next/image";
 import empty from "@/public/empty.svg";
 

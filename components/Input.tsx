@@ -11,11 +11,11 @@ interface Props {
 }
 export const Input = forwardRef(function (
   { name, type, label, placeholder, icon, error }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref: any
 ) {
   const [text, setText] = useState("");
-  const errorMessageRef = useRef();
-  const emptyMessageRef = useRef();
+  const errorMessageRef = useRef<HTMLSpanElement | any>();
+  const emptyMessageRef = useRef<HTMLSpanElement | any>();
 
   const handleChange = (e: any) => {
     e.target.setCustomValidity("");

@@ -12,15 +12,15 @@ import { signIn, useSession } from "next-auth/react";
 export default function Login() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const emailRef = useRef() as React.Ref<HTMLInputElement>;
-  const passwordRef = useRef() as React.Ref<HTMLInputElement>;
+  const emailRef = useRef() as any;
+  const passwordRef = useRef() as any;
 
   console.log(session, status);
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+    const email = emailRef?.current.value;
+    const password = passwordRef?.current?.value;
     try {
       const res = await signIn("credentials", {
         email,
@@ -28,7 +28,7 @@ export default function Login() {
         redirect: false,
       });
 
-      console.log(res);
+      console.log(await res);
       setIsLoading(false);
     } catch (err: any) {
       setIsLoading(false);

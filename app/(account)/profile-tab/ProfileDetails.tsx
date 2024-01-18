@@ -8,41 +8,25 @@ import { FormEventHandler, useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function ProfileDetails() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
   const [isLoading, setIsLoading] = useState(false);
-  const fNameRef = useRef() as React.Ref<HTMLInputElement>;
-  const lNameRef = useRef() as React.Ref<HTMLInputElement>;
-  const emailRef = useRef() as React.Ref<HTMLInputElement>;
-  const imgRef = useRef() as React.Ref<HTMLInputElement>;
+  const fNameRef = useRef() as any;
+  const lNameRef = useRef() as any;
+  const emailRef = useRef() as any;
+  const imgRef = useRef() as any;
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
+    console.log(session?.user.id, status);
+    setIsLoading(true);
+    fNameRef.current.value = session?.user.name || "";
+    lNameRef.current.value = session?.user.lastName || "";
+    emailRef.current.value = session?.user.email || "";
 
-        const res = await fetch("/api/user");
-        if (!res.ok) {
-          throw new Error(`Failed to fetch data Status: ${res.status}`);
-        }
+    imgRef.current.src = session?.user.image || "";
 
-        const { result } = await res.json();
-
-        fNameRef.current.value = result?.name || "";
-        lNameRef.current.value = result?.lastName || "";
-        emailRef.current.value = result?.email || "";
-
-        imgRef.current.src = result?.image || "";
-
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+    setIsLoading(false);
+  }, [session]);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -104,7 +88,7 @@ export default function ProfileDetails() {
             />
           </div>
           <div className="w-full flex flex-row justify-between items-center">
-            <label className="text-gray text-sm mr-[10.8px]">First name*</label>
+            <label className="text-gray text-sm mr-[10.8px]">Last name*</label>
             <Input
               type="text"
               name="lName"

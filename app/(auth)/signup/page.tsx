@@ -10,10 +10,10 @@ import { FormEventHandler, useRef, useState } from "react";
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [isWeakPassword, setisWeakPassword] = useState(false);
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
-  const passwordsDontMatchRef = useRef();
+  const emailRef = useRef() as any;
+  const passwordRef = useRef() as any;
+  const confirmPasswordRef = useRef() as any;
+  const passwordsDontMatchRef = useRef() as any;
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
