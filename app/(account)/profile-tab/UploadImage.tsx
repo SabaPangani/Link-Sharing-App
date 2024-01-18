@@ -1,6 +1,17 @@
 import image from "@/public/image.svg";
 import Image from "next/image";
-export default function UploadImage() {
+import React from "react";
+
+export default function UploadImage({
+  inputRef,
+}: {
+  inputRef: React.Ref<HTMLInputElement>;
+}) {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    console.log("Selected file:", selectedFile);
+  };
+
   return (
     <section className="bg-[#FAFAFA] rounded-xl flex flex-row items-center p-5 self-stretch justify-between gap-4">
       <h1 className="text-gray text-sm">Profile picture</h1>
@@ -14,6 +25,8 @@ export default function UploadImage() {
           type="file"
           accept="image/png, image/jpeg"
           name="profileAvatar"
+          ref={inputRef}
+          onChange={handleFileChange}
         />
         <Image src={image} alt="Image logo" />
         <span className="mt-1 text-purple font-bold">+ Upload Image</span>

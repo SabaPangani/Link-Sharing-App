@@ -13,7 +13,6 @@ export default function RootLayout({
 }) {
   return (
     <div className="p-5">
-      <NavBar />
       <main>{children}</main>
     </div>
   );

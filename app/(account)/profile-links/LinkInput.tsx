@@ -1,4 +1,5 @@
 "use client";
+import { useLinks } from "@/app/hooks/useLinks";
 import Image from "next/image";
 import { forwardRef, useEffect, useRef, useState } from "react";
 interface Props {
@@ -8,20 +9,26 @@ interface Props {
   name: string;
   icon: any;
   error: string;
+  id: string;
+  value: string;
 }
-export const Input = forwardRef(function (
-  { name, type, label, placeholder, icon, error }: Props,
+export const LinkInput = forwardRef(function (
+  { name, type, label, placeholder, icon, error, id, value }: Props,
   ref: React.Ref<HTMLInputElement>
 ) {
-  const [text, setText] = useState("");
+  const { links, setIsEdited } = useLinks()!;
+  const [url, setUrl] = useState(value || "");
   const errorMessageRef = useRef();
   const emptyMessageRef = useRef();
 
-  const handleChange = (e: any) => {
+  const handleInput = (e: any) => {
     e.target.setCustomValidity("");
     const inputValue = e.target.value;
-    setText(inputValue);
-    console.log(inputValue)
+    setUrl(inputValue);
+    const link = links.find((link) => link.id === id);
+    link!.url = inputValue;
+    console.log(inputValue);
+    setIsEdited(true);
   };
 
   const handleBlur = (e: any) => {
@@ -58,7 +65,7 @@ export const Input = forwardRef(function (
     emptyMessageRef.current.style.display = "";
     errorMessageRef.current.style.display = "";
     ref.current.style.color = "";
-  }, [text]);
+  }, [url]);
 
   return (
     <div className="w-full">
@@ -69,9 +76,8 @@ export const Input = forwardRef(function (
         <Image
           className="absolute left-3 top-[54%] -translate-y-1/2"
           src={icon}
-          alt="envelope icon"
+          alt="link icon"
         />
-
         <input
           className="input"
           type={type}
@@ -79,13 +85,12 @@ export const Input = forwardRef(function (
           ref={ref}
           placeholder={placeholder}
           id={label}
-          defaultValue={text}
-          onChange={handleChange}
+          defaultValue={value}
           onBlur={handleBlur}
           onInvalid={handleInvalid}
+          onInput={handleInput}
           required
         />
-
         <span
           className="text-red text-xs absolute right-3 hidden"
           ref={errorMessageRef as any}
