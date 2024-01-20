@@ -1,6 +1,5 @@
 "use client";
 
-
 import Image from "next/image";
 import empty from "@/public/empty.svg";
 
@@ -97,7 +96,9 @@ export default function Links() {
           }}
         >
           {loading ? (
-            <Loader />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2">
+              <Loader />
+            </div>
           ) : links.length >= 1 ? (
             <ul className="flex flex-col gap-y-5">
               {links.map((link: ILink) => (

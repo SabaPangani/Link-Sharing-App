@@ -3,7 +3,7 @@ import { Adapter, AdapterUser } from "next-auth/adapters";
 
 declare module "next-auth" {
   interface Session {
-    user: DefaultUser & {
+    user: AdapterUser & {
       id?: string;
       name: string;
       lastName: string;

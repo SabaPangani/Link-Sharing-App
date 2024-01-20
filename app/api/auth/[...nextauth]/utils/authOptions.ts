@@ -6,13 +6,10 @@ import bcrypt from "bcrypt";
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session, token, user }) => {
-      if (user && session?.user && token) {
-        session.user.id = user.id;
-        session.user.name = token.name;
-        session.user.image = token.image;
-        session.user.lastName = user.lastName;
-        console.log(session, user, token, " session user token");
-      }
+      (session.user.id as unknown) = token.uid;
+      session.user.name = token.name;
+      session.user.lastName = token.lastName;
+      console.log(session, " Session", user, " User", token, " Token");
       return session;
     },
 
@@ -62,17 +59,11 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (isPasswordCorrect) {
-            console.log(
-              { ...user, lastName: user.lastName, id: user.id },
-              " user"
-            );
-
             return {
               id: user.id,
               name: user.name,
               lastName: user.lastName,
               email: user.email,
-              image: user.image,
             } as User;
           }
 

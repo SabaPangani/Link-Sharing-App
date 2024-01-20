@@ -17,7 +17,7 @@ export default function ProfileDetails() {
   const imgRef = useRef() as any;
 
   useEffect(() => {
-    console.log(session?.user.id, status);
+    console.log(session?.user, status);
     setIsLoading(true);
     fNameRef.current.value = session?.user.name || "";
     lNameRef.current.value = session?.user.lastName || "";
