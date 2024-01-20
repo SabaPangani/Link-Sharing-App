@@ -11,6 +11,7 @@ export default function ProfileDetails() {
   const { data: session, status } = useSession();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("false");
   const fNameRef = useRef() as any;
   const lNameRef = useRef() as any;
   const emailRef = useRef() as any;
@@ -23,8 +24,6 @@ export default function ProfileDetails() {
     lNameRef.current.value = session?.user.lastName || "";
     emailRef.current.value = session?.user.email || "";
 
-    imgRef.current.src = session?.user.image || "";
-
     setIsLoading(false);
   }, [session]);
 
@@ -35,8 +34,6 @@ export default function ProfileDetails() {
     const fName = fNameRef.current.value;
     const lName = lNameRef.current.value;
     const email = emailRef.current.value;
-    const image = imgRef.current.value;
-    console.log(image);
     console.log(imgRef);
     try {
       const res = await fetch("/api/user", {
@@ -47,7 +44,7 @@ export default function ProfileDetails() {
           fName,
           lName,
           email,
-          image,
+          image: imageUrl,
         }),
       });
 
@@ -65,18 +62,18 @@ export default function ProfileDetails() {
   };
 
   return (
-    <div className="bg-white w-full rounded-xl p-10 pb-3 relative">
+    <div className="bg-white w-full rounded-xl p-10 pb-3 relative max-[375px]:px-4">
       <header className="mb-8">
-        <h1 className="text-[32px] font-bold">Profile Details</h1>
+        <h1 className="text-[32px] font-bold max-[400px]:text-[24px] text-dark">Profile Details</h1>
         <p className="text-gray">
           Add your details to create a personal touch to your profile.
         </p>
       </header>
       <form className="flex flex-col gap-y-10" onSubmit={handleSubmit}>
-        <UploadImage inputRef={imgRef} />
+        <UploadImage url={imageUrl} onSetImageUrl={setImageUrl} />
         <div className="bg-[#FAFAFA] rounded-xl p-5 flex flex-col gap-y-3">
-          <div className="w-full flex flex-row justify-between items-center">
-            <label className="text-gray text-sm mr-[10.8px]">First name*</label>
+          <div className="w-full flex flex-row justify-between items-center max-[430px]:flex-col max-[430px]:items-start">
+            <label className="text-gray text-sm mr-[10.8px] max-[430px]:text-start">First name*</label>
             <Input
               type="text"
               name="fName"
@@ -87,7 +84,7 @@ export default function ProfileDetails() {
               icon={person}
             />
           </div>
-          <div className="w-full flex flex-row justify-between items-center">
+          <div className="w-full flex flex-row justify-between items-center max-[430px]:flex-col max-[430px]:items-start">
             <label className="text-gray text-sm mr-[10.8px]">Last name*</label>
             <Input
               type="text"
@@ -99,7 +96,7 @@ export default function ProfileDetails() {
               icon={person}
             />
           </div>
-          <div className="w-full flex flex-row justify-between items-center">
+          <div className="w-full flex flex-row justify-between items-center max-[430px]:flex-col max-[430px]:items-start">
             <label className="text-gray text-sm mr-10">Email</label>
             <Input
               type="email"
@@ -112,12 +109,14 @@ export default function ProfileDetails() {
             />
           </div>
         </div>
-        <button
-          className="btn-primary absolute right-10 bottom-5"
-          type="submit"
-        >
-          Save
-        </button>
+        <div className="w-full mt-24 flex flex-col justify-end items-end flex-1">
+          <button
+            className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end"
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

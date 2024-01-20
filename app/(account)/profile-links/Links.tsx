@@ -62,10 +62,12 @@ export default function Links() {
 
   return (
     <>
-      <div className="bg-white w-full flex flex-col text-dark gap-y-10 self-stretch p-10 pb-3 rounded-xl relative">
+      <div className="bg-white w-full flex flex-col text-dark gap-y-10 self-stretch max-[375px]:px-4 p-10 pb-3 rounded-xl relative">
         <header>
-          <h1 className="text-[32px] font-bold">Customize your links</h1>
-          <p className="text-gray">
+          <h1 className="text-[32px] font-bold max-[400px]:text-[24px]">
+            Customize your links
+          </h1>
+          <p className="text-gray max-[400px]:text-[14px]">
             Add/edit/remove links below and then share all your profiles with
             the world!
           </p>
@@ -125,13 +127,14 @@ export default function Links() {
             </div>
           )}
 
-          <button
-            className="btn-primary absolute right-10 bottom-5 "
-            type="submit"
-            disabled={links.length <= 0 || isLoading}
-          >
-            Save
-          </button>
+          <div className="w-full mt-[291px] flex flex-col justify-end items-end flex-1">
+            <button
+              className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
         </form>
       </div>
 

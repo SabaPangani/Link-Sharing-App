@@ -1,23 +1,38 @@
-import image from "@/public/image.svg";
 import Image from "next/image";
-import React from "react";
+import image from "@/public/image.svg";
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function UploadImage({
-  inputRef,
+  url,
+  onSetImageUrl,
 }: {
-  inputRef: React.Ref<HTMLInputElement>;
+  url: string | undefined;
+  onSetImageUrl: (url: string) => void;
 }) {
+  const { data: session } = useSession();
+  useEffect(() => {
+    console.log(url, " url");
+  }, []);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    console.log("Selected file:", selectedFile);
-  };
+    const uploadedImage = e.target.files?.[0];
+    if (!uploadedImage) return;
+    const url = URL.createObjectURL(uploadedImage);
 
+    onSetImageUrl(url);
+
+    console.log(url);
+  };
   return (
-    <section className="bg-[#FAFAFA] rounded-xl flex flex-row items-center p-5 self-stretch justify-between gap-4">
+    <section className="bg-[#FAFAFA] rounded-xl flex flex-row max-[500px]:flex-col max-[430px]:items-start items-center p-5 self-stretch justify-between gap-4 ">
       <h1 className="text-gray text-sm">Profile picture</h1>
       <label
         htmlFor="inputFile"
         className="flex flex-col items-center justify-center rounded-xl bg-light-purple pt-[61px] pr-[38px] pb-[60px] pl-[39px] cursor-pointer"
+        style={{
+          backgroundImage: `url(${url})`,
+          backgroundSize: "cover",
+        }}
       >
         <input
           className="hidden"
@@ -25,11 +40,10 @@ export default function UploadImage({
           type="file"
           accept="image/png, image/jpeg"
           name="profileAvatar"
-          ref={inputRef}
           onChange={handleFileChange}
         />
         <Image src={image} alt="Image logo" />
-        <span className="mt-1 text-purple font-bold">+ Upload Image</span>
+        <span className="mt-1 text-purple font-bold text-center">+ Upload Image</span>
       </label>
       <p className="text-xs text-gray w-[215px]">
         Image must be below 1024x1024px. Use PNG or JPG format.
@@ -37,3 +51,19 @@ export default function UploadImage({
     </section>
   );
 }
+
+// const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const uploadedImage = e.target.files?.[0];
+//   onSetImage(null);
+//   if (!uploadedImage) return;
+
+//   const reader = new FileReader();
+//   reader.onload = (e) => {
+//     if (!e.target) {
+//       return;
+//     }
+//     onSetImage(e.target?.result);
+//     console.log(image);
+//   };
+//   reader.readAsDataURL(uploadedImage);
+// };

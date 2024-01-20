@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import logo from "@/public/logo.svg";
 import LinkSvg from "@/components/svgs/Link";
+import eye from "@/public/eye.svg";
 import UserSvg from "@/components/svgs/User";
 import { usePathname } from "next/navigation";
 
@@ -14,12 +15,12 @@ export default function NavBar() {
     <nav className="bg-white w-full flex flex-row justify-between items-center p-5 rounded-xl">
       <div className="flex flex-row items-center font-bold text-2xl text-dark gap-x-1">
         <Image src={logo} alt="Logo" />
-        <h1>devlinks</h1>
+        <h1 className="max-md:hidden">devlinks</h1>
       </div>
-      <ul className="flex flex-row gap-x-4">
+      <ul className="flex flex-row items-center gap-x-4 max-md:gap-x-0 max-[500px]:gap-x-2">
         <Link href="profile-links">
           <li
-            className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
+            className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg max-md:px-[15px] ${
               pathName === "/profile-links" ? "bg-light-purple text-purple" : ""
             }`}
           >
@@ -28,12 +29,12 @@ export default function NavBar() {
             ) : (
               <LinkSvg fill="#737373" />
             )}
-            <span>Links</span>
+            <span className="max-[500px]:hidden">Links</span>
           </li>
         </Link>
         <Link href="profile-tab">
           <li
-            className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg ${
+            className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg max-md:px-[15px] ${
               pathName === "/profile-tab" ? "bg-light-purple text-purple" : ""
             }`}
           >
@@ -42,12 +43,15 @@ export default function NavBar() {
             ) : (
               <UserSvg fill="#737373" />
             )}
-            <span>Profile Details</span>
+            <span className="max-[500px]:hidden">Profile Details</span>
           </li>
         </Link>
       </ul>
       <Link href={"preview"}>
-        <button className="btn-secondary">Preview</button>
+        <button className="btn-secondary max-[500px]:px-4">
+          <span className="max-[500px]:hidden">Preview</span>
+          <Image className="hidden max-[500px]:block" src={eye} alt="preview icon" />
+        </button>
       </Link>
     </nav>
   );

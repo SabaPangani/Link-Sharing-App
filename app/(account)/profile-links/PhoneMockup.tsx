@@ -4,21 +4,21 @@ import { useLinks } from "@/app/hooks/useLinks";
 import phoneMockup from "@/public/phoneMockup.svg";
 import Image from "next/image";
 import PhoneLink from "./PhoneLink";
+import PhoneDetails from "./PhoneDetails";
 export default function PhoneMockup() {
   const { links } = useLinks()!;
 
   return (
-    <div className="rounded-xl w-full max-w-[560px] h-[856px] bg-white flex justify-center items-center py-28 relative">
+    <div className="rounded-xl w-full max-w-[560px] h-[856px] bg-white flex justify-center items-center py-28 relative max-md:hidden">
       <Image src={phoneMockup} alt="Phone mockup" />
-      {
-        <ul className="flex flex-col gap-[20px] justify-center absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-[39px]">
-          {links.map((link) => (
-            <li key={link.id}>
-              <PhoneLink platform={link.platform} />
-            </li>
-          ))}
-        </ul>
-      }
+      <PhoneDetails />
+      <ul className="flex flex-col gap-[20px] justify-center absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-[39px]">
+        {links.map((link) => (
+          <li key={link.id}>
+            <PhoneLink platform={link.platform} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

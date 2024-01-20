@@ -6,15 +6,11 @@ export const metadata: Metadata = {
   description: "Customize links",
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="p-5">
+    <div>
       <NavBar />
-      <main>{children}</main>
+      <main className="px-3">{children}</main>
     </div>
   );
 }
