@@ -9,8 +9,8 @@ export const authOptions: NextAuthOptions = {
       (session.user.id as unknown) = token.uid;
       session.user.name = token.name;
       session.user.lastName = token.lastName;
-      // session.user.image = token.image;
-      console.log(user, " user");
+      session.user.image = token.image;
+      console.log(session.user)
       return session;
     },
 
@@ -18,12 +18,11 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.uid = user.id;
         token.lastName = user.lastName;
-        // token.image = user.image as string;
+        token.image = user.image as string;
 
-        // user.image && (token.image = user.image);
+        user.image && (token.image = user.image);
         user.id && (token.id = user.id);
         user.lastName && (token.lastName = user.lastName);
-        console.log(token, " token");
       }
       return token;
     },
@@ -68,7 +67,7 @@ export const authOptions: NextAuthOptions = {
               name: user.name,
               lastName: user.lastName,
               email: user.email,
-              // image: user.image, 
+              image: user.image,
             } as User;
           }
 

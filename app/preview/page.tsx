@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
 import { useSession } from "next-auth/react";
 import Card from "./Card";
 import NavBarPreview from "./NavBarPreview";
-
+import { redirect } from "next/navigation";
 export default function page() {
-  const { data: session, status } = useSession();
-  console.log(session, status);
-
+  const { data: session } = useSession();
+  if (!session) {
+    return redirect("/login");
+  }
   return (
     <>
       <NavBarPreview />

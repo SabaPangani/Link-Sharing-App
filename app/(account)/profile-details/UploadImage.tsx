@@ -10,7 +10,6 @@ export default function UploadImage({
   url: string | undefined;
   onSetImageUrl: (url: string) => void;
 }) {
-  const { data: session } = useSession();
   useEffect(() => {
     console.log(url, " url");
   }, []);
@@ -22,20 +21,8 @@ export default function UploadImage({
     onSetImageUrl(url);
 
     console.log(url);
-  };    
+  };
 
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const uploadedImage = e.target.files?.[0];
-  //   if (!uploadedImage) return;
-
-  //   const reader = new FileReader();
-  //   reader.onload = (e) => {
-  //     const imageUrl = e.target?.result as string;
-  //     const dataURL = `data:image/jpeg;base64,${btoa(imageUrl)}`;
-  //     onSetImageUrl(dataURL);
-  //   };
-  //   reader.readAsBinaryString(uploadedImage);
-  // };
   return (
     <section className="bg-[#FAFAFA] rounded-xl flex flex-row max-[500px]:flex-col max-[430px]:items-start items-center p-5 self-stretch justify-between gap-4 ">
       <h1 className="text-gray text-sm">Profile picture</h1>
@@ -74,7 +61,8 @@ export default function UploadImage({
 //   const reader = new FileReader();
 //   reader.onload = (e) => {
 //     const imageUrl = e.target?.result as string;
-//     onSetImageUrl(imageUrl);
+//     const dataURL = `data:image/jpeg;base64,${btoa(imageUrl)}`;
+//     onSetImageUrl(dataURL);
 //   };
-//   reader.readAsDataURL(uploadedImage);
+//   reader.readAsBinaryString(uploadedImage);
 // };

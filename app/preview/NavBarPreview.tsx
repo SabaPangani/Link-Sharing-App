@@ -20,9 +20,9 @@ export default function NavBarPreview() {
         Back to Editor
       </button>
       <button className="btn-primary py-[10px] max-[350px]:px-5">Share Link</button>
-      {/* <button className="btn-primary" onClick={handleSignOut}>
+      <button className="btn-primary" onClick={handleSignOut}>
         Sign out
-      </button> */}
+      </button>
     </nav>
   );
 }
