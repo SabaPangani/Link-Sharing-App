@@ -11,36 +11,82 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [links, setLinks] = React.useState<ILink[]>([]);
+  const [isEdited, setIsEdited] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(true);
   const { data: session } = useSession();
 
+  React.useEffect(() => {
+    if (!session) {
+      localStorage.removeItem("Links");
+    }
+    if (localStorage.getItem("Links") === null) {
+      getLinks();
+    } else {
+      setIsLoading(false);
+      setLinks(JSON.parse(localStorage.getItem("Links")!));
+    }
+  }, []);
   const addLinks = () => {
     if (links.length < 5) {
       const newLink = {
-        id: uuid(),
+        id: uuid().toString(),
         platform: "GitHub",
         url: "",
+        userId: session?.user?.id,
         order: links.length + 1,
-        userId: session?.user?.email,
       } as ILink;
       setLinks((prev) => [...prev, newLink]);
     }
   };
   const getLinks = async () => {
-    const res = await fetch("/api/links");
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/links");
+
+      if (!res.ok) {
+        throw new Error(`Failed to fetch links ${res.status}`);
+      }
+
+      const json = await res.json();
+      console.log(json.result);
+      localStorage.setItem("Links", JSON.stringify(json.result));
+      setLinks(json.result);
+    } catch (err: any) {
+      console.error("Error fetching links:", err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
-  const updateLink = (id: string, platform: string) => {
-    links.find((link) => link.id === id)!.platform = platform;
+  const updateLink = async (id: string, platform: string) => {
+    setLinks((prevLinks) =>
+      prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
+    );
+    setIsEdited(true)
   };
-  const removeLink = (id: string) => {
-    setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
-    let l = links.length;
-    for (let i = 1; i < l; i++) {
-      links[i].order = i;
+  const removeLink = async (id: string) => {
+    try {
+      setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
+      let l = links.length;
+      for (let i = 1; i < l; i++) {
+        links[i].order = i;
+      }
+
+      const res = await fetch("/api/links", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to delete link ${res.status}`);
+      }
+    } catch (err: any) {
+      console.error("Error deleting link:", err.message);
     }
   };
   return (
     <LinkContext.Provider
-      value={{ links, addLinks, getLinks, updateLink, removeLink }}
+      value={{ links, addLinks, getLinks, updateLink, removeLink, setIsEdited, isLoading, isEdited }}
     >
       {children}
     </LinkContext.Provider>

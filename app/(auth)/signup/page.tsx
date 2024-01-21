@@ -10,16 +10,10 @@ import { FormEventHandler, useRef, useState } from "react";
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [isWeakPassword, setisWeakPassword] = useState(false);
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
-  const passwordsDontMatchRef = useRef();
-
-  const isEmailValid = (email: string) => {
-    const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
+  const emailRef = useRef() as any;
+  const passwordRef = useRef() as any;
+  const confirmPasswordRef = useRef() as any;
+  const passwordsDontMatchRef = useRef() as any;
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -34,9 +28,7 @@ export default function Signup() {
         passwordsDontMatchRef.current.style.display = "block";
         throw new Error("Passwords don't match");
       }
-      if (!isEmailValid(email)) {
-        throw new Error("Invalid email");
-      }
+
       const res = await fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -106,7 +98,7 @@ export default function Signup() {
         <p className="text-xs text-gray">
           Password must contain at least 8 characters, symbol and number
         </p>
-        <button className="btn-primary my-3" type="submit">
+        <button className="btn-primary my-3" type="submit" disabled={isLoading}>
           Create new account
         </button>
         <p className="text-center text-gray max-sm:px-6">
