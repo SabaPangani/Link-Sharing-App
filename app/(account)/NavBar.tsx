@@ -32,13 +32,13 @@ export default function NavBar() {
             <span className="max-[500px]:hidden">Links</span>
           </li>
         </Link>
-        <Link href="profile-tab">
+        <Link href="profile-details">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg max-md:px-[15px] ${
-              pathName === "/profile-tab" ? "bg-light-purple text-purple" : ""
+              pathName === "/profile-details" ? "bg-light-purple text-purple" : ""
             }`}
           >
-            {pathName === "/profile-tab" ? (
+            {pathName === "/profile-details" ? (
               <UserSvg fill="#633CFF" />
             ) : (
               <UserSvg fill="#737373" />

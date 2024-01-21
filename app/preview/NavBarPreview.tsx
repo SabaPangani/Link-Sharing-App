@@ -15,14 +15,14 @@ export default function NavBarPreview() {
     router.back();
   };
   return (
-    <nav className="bg-white w-full flex flex-row justify-between items-center p-5 rounded-xl">
-      <button className="btn-secondary" onClick={handleBackRoute}>
+    <nav className="bg-white w-full flex flex-row justify-between items-center p-5 rounded-b-xl">
+      <button className="btn-secondary py-[10px] max-[350px]:px-5" onClick={handleBackRoute}>
         Back to Editor
       </button>
-      <button className="btn-primary">Share Link</button>
-      <button className="btn-primary" onClick={handleSignOut}>
+      <button className="btn-primary py-[10px] max-[350px]:px-5">Share Link</button>
+      {/* <button className="btn-primary" onClick={handleSignOut}>
         Sign out
-      </button>
+      </button> */}
     </nav>
   );
 }

@@ -7,6 +7,7 @@ import { KeyValuePair } from "tailwindcss/types/config";
 import arrow from "@/public/arrowRight.svg";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
+import PhoneLink from "../(account)/profile-links/PhoneLink";
 
 export default function Card() {
   // const [userData, setUserData] = useState([]) as any;
@@ -30,7 +31,7 @@ export default function Card() {
   } as KeyValuePair;
 
   return (
-    <div className="flex flex-col w-full max-w-[354px] px-12 py-16 bg-white absolute left-1/2 top-[20%] -translate-x-1/2 rounded-3xl">
+    <div className="flex flex-col w-full max-w-[354px] px-12 py-16 bg-white absolute left-1/2 top-[20%] -translate-x-1/2 rounded-3xl shadow-[0px 0px 32px 0px rgba(0, 0, 0, 0.10)]">
       {isLoading ? (
         <div className="absolute left-1/2 top-1/4 -translate-x-1/2">
           <Loader />
@@ -52,33 +53,10 @@ export default function Card() {
           {
             <ul className="flex flex-col gap-[20px] justify-center items-center mt-16">
               {links.map((link) => (
-                <li key={link.id}>
-                  <div
-                    style={{
-                      backgroundColor:
-                        bgVariants[
-                          link.platform
-                            .toLowerCase()
-                            .replace(" ", "")
-                            .replace(".", "")
-                        ],
-                    }}
-                    className={`w-[237px] flex flex-row justify-between items-center p-4 rounded-lg`}
-                  >
-                    <div className={`flex flex-row items-center gap-x-2`}>
-                      <Image
-                        src={require(`@/public/linkbox-icons/${link.platform
-                          .toLowerCase()
-                          .replace(" ", "")
-                          .replace(".", "")}.svg`)}
-                        width={20}
-                        height={20}
-                        alt="Platform icon"
-                      />
-                      <span className="text-[#FFF]">{link.platform}</span>
-                    </div>
-                    <Image src={arrow} alt="Arrow" />
-                  </div>
+                <li>
+                  <a href={link.url} target="_blank">
+                    <PhoneLink platform={link.platform} />
+                  </a>
                 </li>
               ))}
             </ul>

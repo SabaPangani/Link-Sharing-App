@@ -1,5 +1,3 @@
-import Image from "next/image";
-import empty from "@/public/empty.svg";
 import PhoneMockup from "../profile-links/PhoneMockup";
 import ProfileDetails from "./ProfileDetails";
 export default function ProfileLinks() {

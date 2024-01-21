@@ -15,6 +15,7 @@ export default function Login() {
   const emailRef = useRef() as any;
   const passwordRef = useRef() as any;
 
+  console.log(session, status);
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -28,7 +29,6 @@ export default function Login() {
       });
 
       console.log(res);
-      console.log(session, status);
       setIsLoading(false);
     } catch (err: any) {
       setIsLoading(false);

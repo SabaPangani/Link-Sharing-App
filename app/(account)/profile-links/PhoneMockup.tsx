@@ -15,7 +15,9 @@ export default function PhoneMockup() {
       <ul className="flex flex-col gap-[20px] justify-center absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-[39px]">
         {links.map((link) => (
           <li key={link.id}>
-            <PhoneLink platform={link.platform} />
+            <a href={link.url} target="_blank">
+              <PhoneLink platform={link.platform} />
+            </a>
           </li>
         ))}
       </ul>
