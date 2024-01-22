@@ -68,7 +68,9 @@ export async function DELETE(req: Request) {
 export async function GET() {
   const session = await getServerSession(authOptions);
   try {
-    const result = await prisma.link.findMany();
+    const result = await prisma.link.findMany({
+      where: { userId: session?.user.id },
+    });
 
     return NextResponse.json({ result }, { status: 200 });
   } catch (err: any) {

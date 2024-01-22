@@ -9,7 +9,7 @@ export default function PhoneMockup() {
   const { links } = useLinks()!;
 
   return (
-    <div className="rounded-xl w-full max-w-[560px] h-[856px] bg-white flex justify-center items-center py-28 relative max-md:hidden">
+    <div className="rounded-xl w-full max-w-[560px] max-h-[856px] bg-white flex justify-center items-center py-28 relative max-md:hidden">
       <Image src={phoneMockup} alt="Phone mockup" />
       <PhoneDetails />
       <ul className="flex flex-col gap-[20px] justify-center absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-[39px]">

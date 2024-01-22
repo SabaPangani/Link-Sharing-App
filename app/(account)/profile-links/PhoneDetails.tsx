@@ -2,16 +2,24 @@ import { useLinks } from "@/app/hooks/useLinks";
 import Loader from "@/components/Loader";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function PhoneDetails() {
   const { data: session } = useSession();
-  const { links, isLoading } = useLinks()!;
 
+  console.log(session?.user.image);
   return (
     <div className="absolute text-center top-[288px]">
       <header>
-        <Image src={session?.user.image as string} alt="pfp" width={30} height={30} />
+        {session?.user.image && (
+          <Image
+            className="absolute -top-28 left-9 w-24 h-24 rounded-full border-4 border-purple"
+            src={session?.user.image!}
+            alt="pfp"
+            width={30}
+            height={30}
+          />
+        )}
         <h1 className="text-dark text-lg font-semibold bg-white px-2 mb-2">
           {session?.user.name} {session?.user.lastName}
         </h1>

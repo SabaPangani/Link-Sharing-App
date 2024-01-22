@@ -9,28 +9,40 @@ import lock from "@/public/lock.svg";
 import { FormEventHandler, useEffect, useRef, useState } from "react";
 
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 export default function Login() {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const emailRef = useRef() as any;
   const passwordRef = useRef() as any;
 
   console.log(session, status);
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    setError(false);
     e.preventDefault();
     setIsLoading(true);
     const email = emailRef?.current.value;
     const password = passwordRef?.current?.value;
     try {
-      const res = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
+      const res = await signIn(
+        "credentials",
+        {
+          email,
+          password,
+          redirect: false,
+        }
+      );
 
-      console.log(res);
+      if (!res?.ok) {
+        throw new Error("Invalid credentials");
+      }
+
+      router.push("/profile-links")
       setIsLoading(false);
     } catch (err: any) {
+      setError(true);
       setIsLoading(false);
       console.error(err);
     }
@@ -69,6 +81,11 @@ export default function Login() {
           Login
         </button>
         {/* </Link> */}
+        {error == true && (
+          <p className="text-red font-medium">
+            Invalid credentials, please check again
+          </p>
+        )}
         <Link href={"/signup"}>
           <p className="text-center text-gray">
             Don’t have an account?{" "}

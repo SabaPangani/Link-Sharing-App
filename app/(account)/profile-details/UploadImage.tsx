@@ -10,9 +10,12 @@ export default function UploadImage({
   url: string | undefined;
   onSetImageUrl: (url: string) => void;
 }) {
+  const { data: session } = useSession();
+
   useEffect(() => {
-    console.log(url, " url");
-  }, []);
+    console.log(url);
+  }, [url]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedImage = e.target.files?.[0];
     if (!uploadedImage) return;

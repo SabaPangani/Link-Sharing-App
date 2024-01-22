@@ -25,7 +25,6 @@ const platforms = [
   "Stack Overflow",
 ];
 
-
 export default function Link({ id, platform, url, order }: ILink) {
   const linkRef = useRef() as React.ForwardedRef<HTMLInputElement>;
   const { updateLink, removeLink } = useLinks()!;

@@ -3,8 +3,8 @@ import ProfileDetails from "./ProfileDetails";
 export default function ProfileLinks() {
 
   return (
-    <div className="flex flex-row my-5 gap-x-5">
-      <PhoneMockup />
+    <div className="w-full">
+      {/* <PhoneMockup /> */}
       <ProfileDetails />
     </div>
   );

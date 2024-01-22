@@ -11,7 +11,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [links, setLinks] = React.useState<ILink[]>([]);
-  const [isEdited, setIsEdited] = React.useState(false)
+  const [isEdited, setIsEdited] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const { data: session } = useSession();
 
@@ -61,7 +61,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
     setLinks((prevLinks) =>
       prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
     );
-    setIsEdited(true)
+    setIsEdited(true);
   };
   const removeLink = async (id: string) => {
     try {
@@ -86,7 +86,16 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   };
   return (
     <LinkContext.Provider
-      value={{ links, addLinks, getLinks, updateLink, removeLink, setIsEdited, isLoading, isEdited }}
+      value={{
+        links,
+        addLinks,
+        getLinks,
+        updateLink,
+        removeLink,
+        setIsEdited,
+        isLoading,
+        isEdited,
+      }}
     >
       {children}
     </LinkContext.Provider>

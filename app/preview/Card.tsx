@@ -2,15 +2,12 @@
 
 import { useLinks } from "@/app/hooks/useLinks";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { KeyValuePair } from "tailwindcss/types/config";
-import arrow from "@/public/arrowRight.svg";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
 import PhoneLink from "../(account)/profile-links/PhoneLink";
 
 export default function Card() {
-  // const [userData, setUserData] = useState([]) as any;
   const { data: session } = useSession();
   const { links, isLoading } = useLinks()!;
 
@@ -38,15 +35,18 @@ export default function Card() {
         </div>
       ) : (
         <>
-          <header className="flex flex-col items-center justify-center">
-            {/* <Image
-          src={session?.user.image as any}
-          alt="Profile picture"
-          width={30}
-          height={30}
-        /> */}
+          <header className="flex flex-col items-center justify-center gap-y-">
+            {session?.user.image && (
+              <Image
+                className="w-[106px] h-[106px] rounded-full border-4 border-purple mb-5"
+                src={session?.user.image!}
+                alt="pfp"
+                width={30}
+                height={30}
+              />
+            )}
             <h1 className="text-dark text-[32px] font-semibold">
-              {session?.user.name}
+              {session?.user.name} {session?.user.lastName}
             </h1>
             <p className="text-gray ">{session?.user.email}</p>
           </header>

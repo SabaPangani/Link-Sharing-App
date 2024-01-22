@@ -62,7 +62,7 @@ export default function Links() {
 
   return (
     <>
-      <div className="bg-white w-full flex flex-col text-dark gap-y-10 self-stretch max-[375px]:px-4 p-10 pb-3 rounded-xl relative">
+      <div className="bg-white h-[856px] no-scrollbar overflow-scroll w-full flex flex-col text-dark gap-y-10 max-[375px]:px-4 p-10 pb-3 rounded-xl relative">
         <header>
           <h1 className="text-[32px] font-bold max-[400px]:text-[24px]">
             Customize your links
@@ -126,16 +126,16 @@ export default function Links() {
               </p>
             </div>
           )}
-
-          <div className="w-full mt-[291px] flex flex-col justify-end items-end flex-1">
-            <button
-              className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end"
-              type="submit"
-            >
-              Save
-            </button>
-          </div>
         </form>
+
+        <div className="w-full mb-[29px] flex flex-col justify-end items-end flex-1">
+          <button
+            className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end"
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
       </div>
 
       {isLoading && <ResponseModal />}

@@ -8,7 +8,7 @@ import { FormEventHandler, useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function ProfileDetails() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
 
   const [isLoading, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("false");
@@ -45,9 +45,15 @@ export default function ProfileDetails() {
           lName,
           email,
           image: imageUrl,
-        }),
+        }), 
       });
 
+      await update({
+        name: fName,
+        lastName: lName,
+        email,
+        image: imageUrl,
+      });
       if (!res.ok) {
         throw new Error(`Failed to submit links. Status: ${res.status}`);
       }
@@ -62,9 +68,11 @@ export default function ProfileDetails() {
   };
 
   return (
-    <div className="bg-white w-full rounded-xl p-10 pb-3 relative max-[375px]:px-4">
+    <div className="bg-white h-[856px] w-full rounded-xl p-10 pb-3 relative max-[375px]:px-4">
       <header className="mb-8">
-        <h1 className="text-[32px] font-bold max-[400px]:text-[24px] text-dark">Profile Details</h1>
+        <h1 className="text-[32px] font-bold max-[400px]:text-[24px] text-dark">
+          Profile Details
+        </h1>
         <p className="text-gray">
           Add your details to create a personal touch to your profile.
         </p>
@@ -73,7 +81,9 @@ export default function ProfileDetails() {
         <UploadImage url={imageUrl} onSetImageUrl={setImageUrl} />
         <div className="bg-[#FAFAFA] rounded-xl p-5 flex flex-col gap-y-3">
           <div className="w-full flex flex-row justify-between items-center max-[430px]:flex-col max-[430px]:items-start">
-            <label className="text-gray text-sm mr-[10.8px] max-[430px]:text-start">First name*</label>
+            <label className="text-gray text-sm mr-[10.8px] max-[430px]:text-start">
+              First name*
+            </label>
             <Input
               type="text"
               name="fName"

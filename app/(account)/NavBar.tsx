@@ -15,7 +15,9 @@ export default function NavBar() {
     <nav className="bg-white w-full flex flex-row justify-between items-center p-5 rounded-xl">
       <div className="flex flex-row items-center font-bold text-2xl text-dark gap-x-1">
         <Image src={logo} alt="Logo" />
-        <h1 className="max-md:hidden">devlinks</h1>
+        <Link href="profile-links">
+          <h1 className="max-md:hidden">devlinks</h1>
+        </Link>
       </div>
       <ul className="flex flex-row items-center gap-x-4 max-md:gap-x-0 max-[500px]:gap-x-2">
         <Link href="profile-links">
@@ -35,7 +37,9 @@ export default function NavBar() {
         <Link href="profile-details">
           <li
             className={`flex flex-row items-center gap-x-2 font-semibold text-gray px-[27px] py-[11px] rounded-lg max-md:px-[15px] ${
-              pathName === "/profile-details" ? "bg-light-purple text-purple" : ""
+              pathName === "/profile-details"
+                ? "bg-light-purple text-purple"
+                : ""
             }`}
           >
             {pathName === "/profile-details" ? (
@@ -50,7 +54,11 @@ export default function NavBar() {
       <Link href={"preview"}>
         <button className="btn-secondary max-[500px]:px-4">
           <span className="max-[500px]:hidden">Preview</span>
-          <Image className="hidden max-[500px]:block" src={eye} alt="preview icon" />
+          <Image
+            className="hidden max-[500px]:block"
+            src={eye}
+            alt="preview icon"
+          />
         </button>
       </Link>
     </nav>
