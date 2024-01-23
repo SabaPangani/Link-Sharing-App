@@ -7,6 +7,8 @@ export default function NavBarPreview() {
   const router = useRouter();
 
   const handleSignOut = async () => {
+    localStorage.removeItem("links");
+    sessionStorage.removeItem("demo");
     await signOut();
   };
   const handleBackRoute = () => {

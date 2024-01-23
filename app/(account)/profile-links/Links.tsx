@@ -12,9 +12,14 @@ import ResponseModal from "@/components/ResponseModal";
 import { useSession } from "next-auth/react";
 
 export default function Links() {
-  const { links, addLinks, isLoading: loading, isEdited } = useLinks()!;
+  const {
+    links,
+    addLinks,
+    isLoading: loading,
+    isEdited,
+    setShowModal,
+  } = useLinks()!;
   const [isLoading, setIsLoading] = useState(false);
-  const [isDuplicate, setIsDuplicate] = useState(false);
   const { data: session, status } = useSession();
   console.log(session, status);
 
@@ -34,12 +39,6 @@ export default function Links() {
         return false;
       });
 
-      if (hasDuplicate) {
-        setIsDuplicate(hasDuplicate);
-        setIsLoading(false);
-        return;
-      }
-
       const res = await fetch("/api/links", {
         method,
         headers: { "Content-Type": "application/json" },
@@ -51,7 +50,7 @@ export default function Links() {
       }
 
       const json = await res.json();
-
+      setShowModal(true);
       console.log(json);
     } catch (error) {
       console.error("Error during form submission:", error);
@@ -62,7 +61,7 @@ export default function Links() {
 
   return (
     <>
-      <div className="bg-white h-[856px] no-scrollbar overflow-scroll w-full flex flex-col text-dark gap-y-10 max-[375px]:px-4 p-10 pb-3 rounded-xl relative">
+      <div className="bg-white min-h-[856px] w-full flex flex-col text-dark gap-y-10 max-[375px]:px-4 p-10 pb-3 rounded-xl relative z-10">
         <header>
           <h1 className="text-[32px] font-bold max-[400px]:text-[24px]">
             Customize your links
@@ -93,6 +92,7 @@ export default function Links() {
           </button>
         )}
         <form
+          className="flex h-full flex-col justify-between"
           onSubmit={(e) => {
             handleSubmit(e);
           }}
@@ -126,19 +126,19 @@ export default function Links() {
               </p>
             </div>
           )}
+          <div className="w-full flex flex-col justify-end items-end flex-1 mt-[29px] mb-5">
+            <button
+              className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end"
+              type="submit"
+              disabled={isLoading}
+            >
+              Save
+            </button>
+          </div>
         </form>
-
-        <div className="w-full mb-[29px] flex flex-col justify-end items-end flex-1">
-          <button
-            className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end"
-            type="submit"
-          >
-            Save
-          </button>
-        </div>
       </div>
 
-      {isLoading && <ResponseModal />}
+      <ResponseModal text="Your changes have been successfully saved!" />
     </>
   );
 }

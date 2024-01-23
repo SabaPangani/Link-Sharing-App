@@ -23,7 +23,7 @@ export default async function Layout({
   return (
     <div className="p-5 max-[320px]:p-0">
       <NavBar />
-      <main className="py-3 max-[320px]:p-3 w-full flex flex-row justify-center items-center gap-x-5">
+      <main className="py-3 max-[320px]:p-3 w-full flex flex-row justify-start items-start gap-x-5">
         <PhoneMockup />
         {children}
       </main>

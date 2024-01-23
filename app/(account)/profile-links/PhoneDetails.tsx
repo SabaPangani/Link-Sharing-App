@@ -13,17 +13,17 @@ export default function PhoneDetails() {
       <header>
         {session?.user.image && (
           <Image
-            className="absolute -top-28 left-9 w-24 h-24 rounded-full border-4 border-purple"
+            className="absolute -top-28 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-4 border-purple"
             src={session?.user.image!}
             alt="pfp"
             width={30}
             height={30}
           />
         )}
-        <h1 className="text-dark text-lg font-semibold bg-white px-2 mb-2">
-          {session?.user.name} {session?.user.lastName}
+        <h1 className="text-dark text-lg font-semibold bg-white mb-2">
+        {session?.user.name} {" "} {session?.user.lastName}
         </h1>
-        <p className="text-gray text-sm bg-white px-2">{session?.user.email}</p>
+        <p className="text-gray text-sm bg-white px-10">{session?.user.email}</p>
       </header>
     </div>
   );

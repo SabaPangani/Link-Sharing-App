@@ -13,19 +13,25 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   const [links, setLinks] = React.useState<ILink[]>([]);
   const [isEdited, setIsEdited] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [showModal, setShowModal] = React.useState(false);
   const { data: session } = useSession();
 
   React.useEffect(() => {
     if (!session) {
-      localStorage.removeItem("Links");
-    }
-    if (localStorage.getItem("Links") === null) {
-      getLinks();
+      localStorage.removeItem("links");
     } else {
-      setIsLoading(false);
-      setLinks(JSON.parse(localStorage.getItem("Links")!));
+      const storedLinks = localStorage.getItem("links");
+
+      if (!storedLinks) {
+        getLinks();
+      } else {
+        const parsedLinks = JSON.parse(storedLinks);
+        setLinks(parsedLinks);
+        setIsLoading(false);
+      }
     }
-  }, []);
+  }, [session]);
+
   const addLinks = () => {
     if (links.length < 5) {
       const newLink = {
@@ -41,6 +47,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   const getLinks = async () => {
     setIsLoading(true);
     try {
+      console.log("fetching");
       const res = await fetch("/api/links");
 
       if (!res.ok) {
@@ -49,7 +56,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const json = await res.json();
       console.log(json.result);
-      localStorage.setItem("Links", JSON.stringify(json.result));
+      localStorage.setItem("links", JSON.stringify(json.result));
       setLinks(json.result);
     } catch (err: any) {
       console.error("Error fetching links:", err.message);
@@ -93,8 +100,10 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
         updateLink,
         removeLink,
         setIsEdited,
+        setShowModal,
         isLoading,
         isEdited,
+        showModal,
       }}
     >
       {children}

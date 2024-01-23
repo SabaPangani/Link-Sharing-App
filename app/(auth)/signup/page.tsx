@@ -6,8 +6,11 @@ import { Input } from "@/components/Input";
 import envelope from "@/public/envelope.svg";
 import lock from "@/public/lock.svg";
 import { FormEventHandler, useRef, useState } from "react";
-
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 export default function Signup() {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isWeakPassword, setisWeakPassword] = useState(false);
   const emailRef = useRef() as any;
@@ -42,8 +45,10 @@ export default function Signup() {
           setisWeakPassword(true);
         }
         setIsLoading(false);
+        throw new Error("Invalid credentials");
       }
 
+      router.push("/login");
       setIsLoading(false);
     } catch (err: any) {
       setIsLoading(false);

@@ -27,7 +27,7 @@ export default function UploadImage({
   };
 
   return (
-    <section className="bg-[#FAFAFA] rounded-xl flex flex-row max-[500px]:flex-col max-[430px]:items-start items-center p-5 self-stretch justify-between gap-4 ">
+    <section className="bg-[#FAFAFA] w-full rounded-xl flex flex-row max-[500px]:flex-col max-[430px]:items-start items-center p-5 self-stretch justify-between gap-4 ">
       <h1 className="text-gray text-sm">Profile picture</h1>
       <label
         htmlFor="inputFile"
@@ -50,7 +50,7 @@ export default function UploadImage({
           + Upload Image
         </span>
       </label>
-      <p className="text-xs text-gray w-[215px]">
+      <p className="text-xs text-gray ">
         Image must be below 1024x1024px. Use PNG or JPG format.
       </p>
     </section>

@@ -46,7 +46,7 @@ export default function Card() {
               />
             )}
             <h1 className="text-dark text-[32px] font-semibold">
-              {session?.user.name} {session?.user.lastName}
+            {session?.user.name} {session?.user.lastName}
             </h1>
             <p className="text-gray ">{session?.user.email}</p>
           </header>

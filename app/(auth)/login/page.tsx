@@ -19,6 +19,7 @@ export default function Login() {
   const passwordRef = useRef() as any;
 
   console.log(session, status);
+  
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     setError(false);
     e.preventDefault();
@@ -26,20 +27,18 @@ export default function Login() {
     const email = emailRef?.current.value;
     const password = passwordRef?.current?.value;
     try {
-      const res = await signIn(
-        "credentials",
-        {
-          email,
-          password,
-          redirect: false,
-        }
-      );
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
       if (!res?.ok) {
         throw new Error("Invalid credentials");
       }
 
-      router.push("/profile-links")
+      router.push("/profile-links");
+
       setIsLoading(false);
     } catch (err: any) {
       setError(true);
