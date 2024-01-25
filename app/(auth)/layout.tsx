@@ -23,12 +23,12 @@ export default async function RootLayout({
     return redirect("/profile-links");
   }
   return (
-    <div className="flex flex-col items-center w-full max-w-[476px] justify-center gap-y-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+    <div className="flex flex-col items-center w-full max-w-[476px] justify-center gap-y-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       <div className="flex flex-row items-center font-semibold text-2xl">
         <Image src={Logo} alt="Logo" />
         <h1>devlinks</h1>
       </div>
-      <main className="bg-white p-[40px] w-full max-w-[476px] rounded-xl">
+      <main className="bg-white p-[40px] max-[320px]:px-[30px] w-full max-w-[476px] rounded-xl max-[320px]:bg-[#FAFAFA]">
         {children}
       </main>
     </div>

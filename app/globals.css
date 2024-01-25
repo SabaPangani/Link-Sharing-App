@@ -76,7 +76,7 @@ body {
     @apply border-purple border-solid border rounded-lg text-purple font-bold py-[11px] hover:bg-light-purple px-7 transition-all;
   }
   .input {
-    @apply w-full h-12 bg-white justify-start px-10 border border-zinc-300 rounded-lg outline-none mt-1 transition-all focus:shadow-[0px_0px_32px_0px_rgba(99,60,255,0.25)] focus:border-2 focus:border-purple focus:outline-none;
+    @apply w-full h-12 bg-[#FFF] justify-start px-10 border border-zinc-300 rounded-lg outline-none mt-1 transition-all focus:shadow-[0px_0px_32px_0px_rgba(99,60,255,0.25)] focus:border-2 focus:border-purple focus:outline-none;
   }
 }
 

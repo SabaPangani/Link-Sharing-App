@@ -62,7 +62,7 @@ export const Input = forwardRef(function (
 
   return (
     <div className="w-full">
-      <label htmlFor={label} className="text-sm">
+      <label htmlFor={label} className="text-xs">
         {label}
       </label>
       <div className="flex flex-row items-center gap-3 relative">

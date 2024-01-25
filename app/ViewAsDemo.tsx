@@ -47,7 +47,7 @@ export default function ViewAsDemo() {
           <div className="flex items-center justify-center flex-col gap-y-5 shadow-2xl rounded-xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white w-full max-w-[400px] min-h-[200px] py-10">
             <Image src={logo} alt="logo" width={60} height={60} />
             <p className="text-dark font-semibold text-sm">
-              View a Demo version or login
+              View a demo version or login
             </p>
 
             <div className="flex items-center">

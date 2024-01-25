@@ -10,6 +10,7 @@ import { FormEvent, useState } from "react";
 import Loader from "@/components/Loader";
 import ResponseModal from "@/components/ResponseModal";
 import { useSession } from "next-auth/react";
+import save from "@/public/save.svg";
 
 export default function Links() {
   const {
@@ -138,7 +139,10 @@ export default function Links() {
         </form>
       </div>
 
-      <ResponseModal text="Your changes have been successfully saved!" />
+      <ResponseModal
+        text="Your changes have been successfully saved!"
+        svg={save}
+      />
     </>
   );
 }

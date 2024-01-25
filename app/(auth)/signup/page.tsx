@@ -58,10 +58,10 @@ export default function Signup() {
   return (
     <>
       <header>
-        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl">
+        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl mb-3">
           Create account
         </h1>
-        <p className="text-gray mb-8 max-sm:text-sm">
+        <p className="text-gray mb-8 max-sm:text-sm w-full">
           Let’s get you started sharing your links!
         </p>
       </header>

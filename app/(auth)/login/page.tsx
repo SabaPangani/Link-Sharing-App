@@ -49,10 +49,10 @@ export default function Login() {
   return (
     <>
       <header>
-        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl">
+        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl mb-3">
           Login
         </h1>
-        <p className="text-gray mb-8 max-sm:text-sm">
+        <p className="text-gray mb-8 max-sm:text-sm w-full">
           Add your details below to get back into the app
         </p>
       </header>
@@ -88,7 +88,7 @@ export default function Login() {
         <Link href={"/signup"}>
           <p className="text-center text-gray">
             Don’t have an account?{" "}
-            <span className="text-purple font-medium cursor-pointer max-sm:px-6">
+            <span className="text-purple font-medium cursor-pointer">
               Create account
             </span>
           </p>

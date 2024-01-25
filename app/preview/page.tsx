@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <>
       <NavBarPreview />
-      <header className="bg-purple w-full z-[-1] h-[357px] rounded-b-[32px] absolute top-0 left-1/2 -translate-x-1/2  max-[320px]:bg-white"></header>
+      <header className="bg-purple w-full z-[-1] h-[357px] rounded-b-[32px] absolute top-0 left-1/2 -translate-x-1/2  max-[320px]:bg-[#FAFAFA]"></header>
       <Card />
     </>
   );
