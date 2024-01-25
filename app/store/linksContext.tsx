@@ -56,18 +56,24 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const json = await res.json();
       console.log(json.result);
-      localStorage.setItem("links", JSON.stringify(json.result));
-      const l = links.length
-      for (let i = 1; i < l; i++) {
-        links[i].order = i;
-      }
-      setLinks(json.result);
+
+      const sortedLinks = json.result.sort(
+        (a: ILink, b: ILink) => a.order - b.order
+      );
+
+      const updatedLinks = sortedLinks.map((link: ILink, index: number) => {
+        return { ...link, order: index + 1 };
+      });
+
+      localStorage.setItem("links", JSON.stringify(updatedLinks));
+      setLinks(updatedLinks);
     } catch (err: any) {
       console.error("Error fetching links:", err.message);
     } finally {
       setIsLoading(false);
     }
   };
+
   const updateLink = async (id: string, platform: string) => {
     setLinks((prevLinks) =>
       prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))

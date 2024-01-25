@@ -11,7 +11,7 @@ export default function PhoneDetails() {
   return (
     <div className="absolute text-center top-[288px]">
       <header>
-        {session?.user.image && (
+        {session?.user.image !== "false" && (
           <Image
             className="absolute -top-28 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-4 border-purple"
             src={session?.user.image!}

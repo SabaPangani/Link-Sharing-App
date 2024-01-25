@@ -29,16 +29,7 @@ export default function Links() {
     setIsLoading(true);
 
     try {
-      const linkSet = new Set();
       const method = isEdited ? "PUT" : "POST";
-      const hasDuplicate = links.some((link) => {
-        if (linkSet.has(link.platform)) {
-          alert("Duplicate links found");
-          return true;
-        }
-        linkSet.add(link.platform);
-        return false;
-      });
 
       const res = await fetch("/api/links", {
         method,
