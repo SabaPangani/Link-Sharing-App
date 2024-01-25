@@ -42,9 +42,9 @@ export default function Card() {
         ) : (
           <>
             <header className="flex flex-col items-center justify-center gap-y-">
-              {session?.user.image && (
+              {session?.user.image !== "false" && (
                 <Image
-                  className="w-[106px] h-[106px] rounded-full border-4 border-purple mb-5"
+                  className="absolute -top-28 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-4 border-purple"
                   src={session?.user.image!}
                   alt="pfp"
                   width={30}
