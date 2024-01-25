@@ -72,7 +72,7 @@ export default function ProfileDetails() {
 
   return (
     <>
-      <div className="bg-white min-h-[856px] w-full p-10 rounded-xl pb-3 relative max-[375px]:px-4">
+      <div className="bg-white h-[856px] w-full p-10 rounded-xl pb-3 relative max-[375px]:px-4">
         <header className="mb-8">
           <h1 className="text-[32px] font-bold max-[400px]:text-[24px] text-dark">
             Profile Details
@@ -81,7 +81,10 @@ export default function ProfileDetails() {
             Add your details to create a personal touch to your profile.
           </p>
         </header>
-        <form className="flex flex-col gap-y-10" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col gap-y-10 h-full max-md:pb-10"
+          onSubmit={handleSubmit}
+        >
           <UploadImage url={imageUrl} onSetImageUrl={setImageUrl} />
           <div className="bg-[#FAFAFA] rounded-xl p-5 flex flex-col gap-y-3">
             <div className="w-full flex flex-row justify-between items-center max-[430px]:flex-col max-[430px]:items-start">
@@ -125,10 +128,11 @@ export default function ProfileDetails() {
               />
             </div>
           </div>
-          <div className="w-full flex flex-col justify-end items-end flex-1">
+          <div className="w-full right-10 max-[430px]:-bottom-5 max-[320px]:right-[14px] bottom-7 max-md:w-[90%] max-md:right-1/4 max-[320px]:translate-x-0  max-md:translate-x-[22%] absolute flex flex-col justify-end items-end  transition-all duration-100">
             <button
-              className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end mb-5"
+              className="btn-primary max-md:w-full max-md:justify-center mt-4"
               type="submit"
+              disabled={isLoading}
             >
               Save
             </button>

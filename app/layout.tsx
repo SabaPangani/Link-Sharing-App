@@ -25,8 +25,8 @@ export default async function RootLayout({
           <body
             className={`${instrumentSans.className} w-full max-w-[1440px] mx-auto`}
           >
-            {/* {children} */}
-            <div className="text-5xl text-purple font-medium absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">Under maintenance</div>
+            {children}
+            {/* <div className="text-5xl text-purple font-medium absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">Under maintenance</div> */}
           </body>
         </html>
       </LinkProvider>

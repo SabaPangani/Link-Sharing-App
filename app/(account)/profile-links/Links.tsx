@@ -53,7 +53,7 @@ export default function Links() {
 
   return (
     <>
-      <div className="bg-white min-h-[856px] w-full flex flex-col text-dark gap-y-10 max-[375px]:px-4 p-10 pb-3 rounded-xl relative z-10">
+      <div className="bg-white min-h-[856px] w-full flex flex-col  text-dark gap-y-10 max-[375px]:px-4 p-10 pb-3 rounded-xl relative z-10">
         <header>
           <h1 className="text-[32px] font-bold max-[400px]:text-[24px]">
             Customize your links
@@ -84,7 +84,7 @@ export default function Links() {
           </button>
         )}
         <form
-          className="flex h-full flex-col justify-between"
+          className="flex h-auto flex-col justify-between"
           onSubmit={(e) => {
             handleSubmit(e);
           }}
@@ -118,11 +118,11 @@ export default function Links() {
               </p>
             </div>
           )}
-          <div className="w-full flex flex-col justify-end items-end flex-1 mt-[29px] mb-5">
+          <div className="w-full right-10 max-[320px]:right-[14px] bottom-7 max-md:w-[90%] max-md:right-1/4 max-[320px]:translate-x-0  max-md:translate-x-[22%] absolute flex flex-col justify-end items-end  transition-all duration-100">
             <button
-              className="btn-primary max-md:w-full max-md:justify-center flex justify-end items-end"
+              className="btn-primary max-md:w-full max-md:justify-center mt-4"
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || links.length <= 0 || !isEdited}
             >
               Save
             </button>

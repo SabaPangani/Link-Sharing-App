@@ -1,9 +1,8 @@
 import Links from "./Links";
-import PhoneMockup from "./PhoneMockup";
 
 export default function page() {
   return (
-    <div className="w-full h-full">
+    <div className="w-full min-h-[856px] bg-white rounded-xl">
       {/* <PhoneMockup /> */}
       <Links />
     </div>
