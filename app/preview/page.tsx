@@ -4,6 +4,13 @@ import Card from "./Card";
 import NavBarPreview from "./NavBarPreview";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/utils/authOptions";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Preview",
+  description: "Preview profile",
+};
+
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
