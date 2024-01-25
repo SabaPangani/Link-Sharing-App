@@ -25,7 +25,6 @@ const platforms = [
   "Stack Overflow",
 ];
 
-
 export default function Link({ id, platform, url, order }: ILink) {
   const linkRef = useRef() as React.ForwardedRef<HTMLInputElement>;
   const { updateLink, removeLink } = useLinks()!;
@@ -82,7 +81,7 @@ export default function Link({ id, platform, url, order }: ILink) {
           </div>
 
           {open && (
-            <div className="absolute top-[5.7rem] no-scrollbar h-96 w-full rounded-xl bg-white border-zinc-300 z-10 overflow-y-scroll shadow-[0px_0px_32px_0px_rgba(99,60,255,0.25)]">
+            <div className="absolute top-[5.7rem] no-scrollbar h-96 w-full rounded-xl bg-white border-zinc-300  overflow-y-scroll shadow-[0px_0px_32px_0px_rgba(99,60,255,0.25)] z-50">
               <ul className="flex flex-col gap-y-3 px-4 py-3">
                 {platforms.map((platform) => {
                   return (

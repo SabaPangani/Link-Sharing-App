@@ -11,21 +11,27 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [links, setLinks] = React.useState<ILink[]>([]);
-  const [isEdited, setIsEdited] = React.useState(false)
+  const [isEdited, setIsEdited] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [showModal, setShowModal] = React.useState(false);
   const { data: session } = useSession();
 
   React.useEffect(() => {
     if (!session) {
-      localStorage.removeItem("Links");
-    }
-    if (localStorage.getItem("Links") === null) {
-      getLinks();
+      localStorage.removeItem("links");
     } else {
-      setIsLoading(false);
-      setLinks(JSON.parse(localStorage.getItem("Links")!));
+      const storedLinks = localStorage.getItem("links");
+
+      if (!storedLinks) {
+        getLinks();
+      } else {
+        const parsedLinks = JSON.parse(storedLinks);
+        setLinks(parsedLinks);
+        setIsLoading(false);
+      }
     }
-  }, []);
+  }, [session]);
+
   const addLinks = () => {
     if (links.length < 5) {
       const newLink = {
@@ -41,6 +47,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   const getLinks = async () => {
     setIsLoading(true);
     try {
+      console.log("fetching");
       const res = await fetch("/api/links");
 
       if (!res.ok) {
@@ -49,7 +56,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const json = await res.json();
       console.log(json.result);
-      localStorage.setItem("Links", JSON.stringify(json.result));
+      localStorage.setItem("links", JSON.stringify(json.result));
       setLinks(json.result);
     } catch (err: any) {
       console.error("Error fetching links:", err.message);
@@ -61,7 +68,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
     setLinks((prevLinks) =>
       prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
     );
-    setIsEdited(true)
+    setIsEdited(true);
   };
   const removeLink = async (id: string) => {
     try {
@@ -86,7 +93,18 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   };
   return (
     <LinkContext.Provider
-      value={{ links, addLinks, getLinks, updateLink, removeLink, setIsEdited, isLoading, isEdited }}
+      value={{
+        links,
+        addLinks,
+        getLinks,
+        updateLink,
+        removeLink,
+        setIsEdited,
+        setShowModal,
+        isLoading,
+        isEdited,
+        showModal,
+      }}
     >
       {children}
     </LinkContext.Provider>

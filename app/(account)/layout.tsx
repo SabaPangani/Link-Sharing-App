@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/utils/authOptions";
+import PhoneMockup from "./profile-links/PhoneMockup";
 export const metadata: Metadata = {
   title: "Account",
   description: "Customize links",
@@ -20,9 +21,12 @@ export default async function Layout({
     return redirect("/login");
   }
   return (
-    <div>
+    <div className="p-5 max-[320px]:p-0">
       <NavBar />
-      <main className="px-3">{children}</main>
+      <main className="py-3 max-[320px]:p-3 w-full flex flex-row justify-start items-start gap-x-5">
+        <PhoneMockup />
+        {children}
+      </main>
     </div>
   );
 }

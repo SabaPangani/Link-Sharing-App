@@ -2,15 +2,12 @@
 
 import { useLinks } from "@/app/hooks/useLinks";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { KeyValuePair } from "tailwindcss/types/config";
-import arrow from "@/public/arrowRight.svg";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
 import PhoneLink from "../(account)/profile-links/PhoneLink";
 
 export default function Card() {
-  // const [userData, setUserData] = useState([]) as any;
   const { data: session } = useSession();
   const { links, isLoading } = useLinks()!;
 
@@ -30,39 +27,55 @@ export default function Card() {
     twitch: "#EE3FC8",
   } as KeyValuePair;
 
+  const handleSignOut = async () => {
+    localStorage.removeItem("links");
+    sessionStorage.removeItem("demo");
+    await signOut();
+  };
   return (
-    <div className="flex flex-col w-full max-w-[354px] px-12 py-16 bg-white absolute left-1/2 top-[20%] -translate-x-1/2 rounded-3xl shadow-[0px 0px 32px 0px rgba(0, 0, 0, 0.10)]">
-      {isLoading ? (
-        <div className="absolute left-1/2 top-1/4 -translate-x-1/2">
-          <Loader />
-        </div>
-      ) : (
-        <>
-          <header className="flex flex-col items-center justify-center">
-            {/* <Image
-          src={session?.user.image as any}
-          alt="Profile picture"
-          width={30}
-          height={30}
-        /> */}
-            <h1 className="text-dark text-[32px] font-semibold">
-              {session?.user.name}
-            </h1>
-            <p className="text-gray ">{session?.user.email}</p>
-          </header>
-          {
-            <ul className="flex flex-col gap-[20px] justify-center items-center mt-16">
-              {links.map((link) => (
-                <li>
-                  <a href={link.url} target="_blank">
-                    <PhoneLink platform={link.platform} />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          }
-        </>
-      )}
-    </div>
+    <>
+      <div className="flex flex-col w-full max-w-[354px] px-12 py-16 bg-white absolute left-1/2 top-[20%] -translate-x-1/2 rounded-3xl shadow-2xl max-[320px]:bg-[#FAFAFA] max-[320px]:shadow-none">
+        {isLoading ? (
+          <div className="absolute left-1/2 top-1/4 -translate-x-1/2">
+            <Loader />
+          </div>
+        ) : (
+          <>
+            <header className="flex flex-col items-center justify-center gap-y-">
+              {session?.user.image && (
+                <Image
+                  className="w-[106px] h-[106px] rounded-full border-4 border-purple mb-5"
+                  src={session?.user.image!}
+                  alt="pfp"
+                  width={30}
+                  height={30}
+                />
+              )}
+              <h1 className="text-dark text-[32px] font-semibold">
+                {session?.user.name} {session?.user.lastName}
+              </h1>
+              <p className="text-gray ">{session?.user.email}</p>
+            </header>
+            {
+              <ul className="flex flex-col gap-[20px] justify-center items-center mt-16">
+                {links.map((link) => (
+                  <li>
+                    <a href={link.url} target="_blank">
+                      <PhoneLink platform={link.platform} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            }
+          </>
+        )}
+      </div>
+      <p className="text-dark font-medium absolute top-[57%] left-1/2 -translate-x-1/2 -translate-y-[57%] w-full text-center cursor-pointer">
+        Want to sign out?{" "}
+        <span className="text-purple font-medium" onClick={handleSignOut}>
+          Sign Out
+        </span>
+      </p>
+    </>
   );
 }

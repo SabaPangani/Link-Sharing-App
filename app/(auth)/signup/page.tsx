@@ -6,8 +6,11 @@ import { Input } from "@/components/Input";
 import envelope from "@/public/envelope.svg";
 import lock from "@/public/lock.svg";
 import { FormEventHandler, useRef, useState } from "react";
-
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 export default function Signup() {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isWeakPassword, setisWeakPassword] = useState(false);
   const emailRef = useRef() as any;
@@ -42,8 +45,10 @@ export default function Signup() {
           setisWeakPassword(true);
         }
         setIsLoading(false);
+        throw new Error("Invalid credentials");
       }
 
+      router.push("/login");
       setIsLoading(false);
     } catch (err: any) {
       setIsLoading(false);
@@ -53,10 +58,10 @@ export default function Signup() {
   return (
     <>
       <header>
-        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl">
+        <h1 className="text-[32px] font-bold text-dark max-sm:text-2xl mb-3">
           Create account
         </h1>
-        <p className="text-gray mb-8 max-sm:text-sm">
+        <p className="text-gray mb-8 max-sm:text-sm w-full">
           Let’s get you started sharing your links!
         </p>
       </header>

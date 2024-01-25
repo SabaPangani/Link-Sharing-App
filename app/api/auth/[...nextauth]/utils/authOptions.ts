@@ -6,15 +6,14 @@ import bcrypt from "bcrypt";
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session, token, user }) => {
-      (session.user.id as unknown) = token.uid;
-      session.user.name = token.name;
-      session.user.lastName = token.lastName;
-      session.user.image = token.image;
-      console.log(session.user)
+      (session.user.id as unknown) = token.uid || "";
+      session.user.name = token.name || "";
+      session.user.lastName = token.lastName || "";
+      session.user.image = token.image || "/";
       return session;
     },
 
-    jwt: async ({ user, token }) => {
+    jwt: async ({ user, token, trigger, session }) => {
       if (user) {
         token.uid = user.id;
         token.lastName = user.lastName;
@@ -23,6 +22,13 @@ export const authOptions: NextAuthOptions = {
         user.image && (token.image = user.image);
         user.id && (token.id = user.id);
         user.lastName && (token.lastName = user.lastName);
+      }
+
+      if (trigger === "update" && session) {
+        token.name = session.name;
+        token.lastName = session.lastName;
+        token.email = session.email;
+        token.image = session.image;
       }
       return token;
     },
