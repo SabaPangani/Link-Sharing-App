@@ -8,6 +8,7 @@ import { FormEventHandler, useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import ResponseModal from "@/components/ResponseModal";
 import { useLinks } from "@/app/hooks/useLinks";
+import save from "@/public/save.svg";
 
 export default function ProfileDetails() {
   const { data: session, status, update } = useSession();
@@ -134,7 +135,10 @@ export default function ProfileDetails() {
           </div>
         </form>
       </div>
-      <ResponseModal text="Your changes have been successfully saved!" />
+      <ResponseModal
+        text="Your changes have been successfully saved!"
+        svg={save}
+      />
     </>
   );
 }

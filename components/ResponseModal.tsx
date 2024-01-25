@@ -6,7 +6,7 @@ export default function ResponseModal({
   svg,
 }: {
   text: string;
-  svg: any;
+  svg: HTMLImageElement;
 }) {
   const { showModal, setShowModal } = useLinks()!;
 
