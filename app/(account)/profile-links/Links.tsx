@@ -29,9 +29,8 @@ export default function Links() {
     setIsLoading(true);
 
     try {
-      const linkSet = new Set();
       const method = isEdited ? "PUT" : "POST";
-      
+
       const res = await fetch("/api/links", {
         method,
         headers: { "Content-Type": "application/json" },
