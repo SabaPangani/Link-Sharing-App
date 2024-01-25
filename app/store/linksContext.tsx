@@ -57,6 +57,10 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
       const json = await res.json();
       console.log(json.result);
       localStorage.setItem("links", JSON.stringify(json.result));
+      const l = links.length
+      for (let i = 1; i < l; i++) {
+        links[i].order = i;
+      }
       setLinks(json.result);
     } catch (err: any) {
       console.error("Error fetching links:", err.message);
