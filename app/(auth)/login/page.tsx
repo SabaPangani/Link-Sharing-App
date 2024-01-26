@@ -6,20 +6,17 @@ import { Input } from "@/components/Input";
 import envelope from "@/public/envelope.svg";
 import lock from "@/public/lock.svg";
 
-import { FormEventHandler, useEffect, useRef, useState } from "react";
+import { FormEventHandler, useRef, useState } from "react";
 
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 export default function Login() {
   const router = useRouter();
-  const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const emailRef = useRef() as any;
   const passwordRef = useRef() as any;
 
-  console.log(session, status);
-  
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     setError(false);
     e.preventDefault();

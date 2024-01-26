@@ -3,7 +3,6 @@
 import { useLinks } from "@/app/hooks/useLinks";
 import Image from "next/image";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
-import { ForwardRefRenderFunction } from "react";
 interface Props {
   type: string;
   label: string;
@@ -30,7 +29,7 @@ export const LinkInput = forwardRef<HTMLInputElement, Props>(function (
     setUrl(inputValue);
     const link = links.find((link) => link.id === id);
     link!.url = inputValue;
-    console.log(inputValue);
+    // console.log(inputValue);
     setIsEdited(true);
   };
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {

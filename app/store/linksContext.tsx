@@ -47,7 +47,6 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   const getLinks = async () => {
     setIsLoading(true);
     try {
-      console.log("fetching");
       const res = await fetch("/api/links");
 
       if (!res.ok) {
@@ -55,7 +54,6 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       const json = await res.json();
-      console.log(json.result);
 
       const sortedLinks = json.result.sort(
         (a: ILink, b: ILink) => a.order - b.order
@@ -83,10 +81,10 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
   const removeLink = async (id: string) => {
     try {
       setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
-      let l = links.length;
-      for (let i = 1; i < l; i++) {
-        links[i].order = i;
-      }
+
+      setLinks((prevLinks) =>
+        prevLinks.map((link, index) => ({ ...link, order: index + 1 }))
+      );
 
       const res = await fetch("/api/links", {
         method: "DELETE",
@@ -101,6 +99,7 @@ export const LinkProvider: React.FC<{ children: React.ReactNode }> = ({
       console.error("Error deleting link:", err.message);
     }
   };
+
   return (
     <LinkContext.Provider
       value={{

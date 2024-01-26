@@ -1,7 +1,6 @@
 import Image from "next/image";
 import image from "@/public/image.svg";
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 
 export default function UploadImage({
   url,
@@ -10,11 +9,10 @@ export default function UploadImage({
   url: string | undefined;
   onSetImageUrl: (url: string) => void;
 }) {
-  const { data: session } = useSession();
 
-  useEffect(() => {
-    console.log(url);
-  }, [url]);
+  // useEffect(() => {
+  //   console.log(url);
+  // }, [url]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedImage = e.target.files?.[0];
@@ -23,7 +21,7 @@ export default function UploadImage({
 
     onSetImageUrl(url);
 
-    console.log(url);
+    // console.log(url);
   };
 
   return (

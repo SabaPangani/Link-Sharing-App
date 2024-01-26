@@ -11,7 +11,7 @@ import { useLinks } from "@/app/hooks/useLinks";
 import save from "@/public/save.svg";
 
 export default function ProfileDetails() {
-  const { data: session, status, update } = useSession();
+  const { data: session, update } = useSession();
 
   const [isLoading, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("false");
@@ -21,7 +21,6 @@ export default function ProfileDetails() {
   const emailRef = useRef() as any;
 
   useEffect(() => {
-    console.log(session?.user, status);
     setIsLoading(true);
     fNameRef.current.value = session?.user.name || "";
     lNameRef.current.value = session?.user.lastName || "";
@@ -61,8 +60,6 @@ export default function ProfileDetails() {
       }
 
       setShowModal(true);
-      const json = await res.json();
-      console.log(json);
       setIsLoading(false);
     } catch (err: any) {
       setIsLoading(false);

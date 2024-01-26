@@ -1,13 +1,9 @@
-import { useLinks } from "@/app/hooks/useLinks";
-import Loader from "@/components/Loader";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
 
 export default function PhoneDetails() {
   const { data: session } = useSession();
 
-  console.log(session?.user.image);
   return (
     <div className="absolute text-center top-[288px]">
       <header>

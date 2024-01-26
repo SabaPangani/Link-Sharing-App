@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/utils/authOptions";
 import PhoneMockup from "./profile-links/PhoneMockup";
+import { Suspense } from "react";
+import Loading from "./loading";
 export const metadata: Metadata = {
   title: "Account",
   description: "Customize links",
@@ -16,7 +18,6 @@ export default async function Layout({
 }) {
   const session = await getServerSession(authOptions);
 
-  console.log(session);
   if (!session) {
     return redirect("/login");
   }
@@ -24,8 +25,10 @@ export default async function Layout({
     <div className="p-5 max-[320px]:p-0">
       <NavBar />
       <main className="py-3 max-[320px]:p-3 w-full flex flex-row justify-start items-start gap-x-5">
-        <PhoneMockup />
-        {children}
+        <Suspense fallback={<Loading />}>
+          <PhoneMockup />
+          {children}
+        </Suspense>
       </main>
     </div>
   );

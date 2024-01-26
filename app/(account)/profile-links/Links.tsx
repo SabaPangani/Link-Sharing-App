@@ -9,7 +9,6 @@ import { useLinks } from "@/app/hooks/useLinks";
 import { FormEvent, useState } from "react";
 import Loader from "@/components/Loader";
 import ResponseModal from "@/components/ResponseModal";
-import { useSession } from "next-auth/react";
 import save from "@/public/save.svg";
 
 export default function Links() {
@@ -21,8 +20,6 @@ export default function Links() {
     setShowModal,
   } = useLinks()!;
   const [isLoading, setIsLoading] = useState(false);
-  const { data: session, status } = useSession();
-  console.log(session, status);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,9 +38,7 @@ export default function Links() {
         throw new Error(`Failed to submit links. Status: ${res.status}`);
       }
 
-      const json = await res.json();
       setShowModal(true);
-      console.log(json);
     } catch (error) {
       console.error("Error during form submission:", error);
     } finally {

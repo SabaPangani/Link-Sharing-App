@@ -1,5 +1,4 @@
-import { useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import Card from "./Card";
 import NavBarPreview from "./NavBarPreview";
 import { getServerSession } from "next-auth";
@@ -11,11 +10,9 @@ export const metadata: Metadata = {
   description: "Preview profile",
 };
 
-
 export default async function Page() {
   const session = await getServerSession(authOptions);
 
-  console.log(session);
   if (!session) {
     return redirect("/login");
   }

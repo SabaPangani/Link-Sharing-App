@@ -2,7 +2,6 @@
 
 import { useLinks } from "@/app/hooks/useLinks";
 import Image from "next/image";
-import { KeyValuePair } from "tailwindcss/types/config";
 import { signOut, useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
 import PhoneLink from "../(account)/profile-links/PhoneLink";
@@ -10,22 +9,6 @@ import PhoneLink from "../(account)/profile-links/PhoneLink";
 export default function Card() {
   const { data: session } = useSession();
   const { links, isLoading } = useLinks()!;
-
-  const bgVariants = {
-    github: "#1A1A1A",
-    "dev.to": "#333",
-    frontendmentor: "#D9D9D9",
-    codewars: "#8A1A50",
-    twitter: "#43B7E9",
-    freecodecamp: "#302267",
-    linkedin: "#2D68FF",
-    gitlab: "#EB4925",
-    youtube: "#EE3939",
-    hashnode: "#0330D1",
-    facebook: "#2442AC",
-    stackoverflow: "#EC7100",
-    twitch: "#EE3FC8",
-  } as KeyValuePair;
 
   const handleSignOut = async () => {
     localStorage.removeItem("links");

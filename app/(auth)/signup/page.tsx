@@ -7,7 +7,6 @@ import envelope from "@/public/envelope.svg";
 import lock from "@/public/lock.svg";
 import { FormEventHandler, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 export default function Signup() {
   const router = useRouter();
 
@@ -40,7 +39,6 @@ export default function Signup() {
 
       const json = await res.json();
       if (!res.ok) {
-        console.log(json.err);
         if (json.err === "Weak password") {
           setisWeakPassword(true);
         }

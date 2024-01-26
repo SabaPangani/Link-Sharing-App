@@ -21,7 +21,6 @@ export const Input = forwardRef(function (
     e.target.setCustomValidity("");
     const inputValue = e.target.value;
     setText(inputValue);
-    console.log(inputValue);
   };
 
   const handleBlur = (e: any) => {
