@@ -10,6 +10,7 @@ import { FormEvent, useState } from "react";
 import Loader from "@/components/Loader";
 import ResponseModal from "@/components/ResponseModal";
 import save from "@/public/save.svg";
+import { useDemo } from "@/app/hooks/useDemo";
 
 export default function Links() {
   const {
@@ -19,6 +20,9 @@ export default function Links() {
     isEdited,
     setShowModal,
   } = useLinks()!;
+
+  const { isDemo, handleMouseEnter, handleMouseLeave, isMouseEntered } =
+    useDemo()!;
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -113,11 +117,21 @@ export default function Links() {
               </p>
             </div>
           )}
-          <div className="w-full right-10 max-[320px]:right-[14px] bottom-7 max-md:w-[90%] max-md:right-1/4 max-[320px]:translate-x-0  max-md:translate-x-[22%] absolute flex flex-col justify-end items-end  transition-all duration-100">
+
+          <div
+            className="w-full right-10 max-[320px]:right-[14px] bottom-7 max-md:w-[90%] max-md:right-1/4 max-[320px]:translate-x-0  max-md:translate-x-[22%] absolute flex flex-col justify-end items-end  transition-all duration-100"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {isMouseEntered && isDemo && (
+              <p className="text-purple font-semibold text-xs bg-light-purple rounded-md px-3 py-2">
+                For full access register
+              </p>
+            )}
             <button
               className="btn-primary max-md:w-full max-md:justify-center mt-4"
               type="submit"
-              disabled={isLoading || links.length <= 0 || !isEdited}
+              disabled={isLoading || links.length <= 0 || !isEdited || isDemo}
             >
               Save
             </button>
