@@ -52,7 +52,7 @@ export default function Links() {
 
   return (
     <>
-      <div className="bg-white min-h-[856px] w-full flex flex-col  text-dark gap-y-10 max-[375px]:px-4 p-10 pb-3 rounded-xl relative z-10">
+      <div className="bg-white min-h-[856px] w-full flex flex-col text-dark gap-y-10 max-[375px]:px-4 p-10 pb-3 rounded-xl relative z-10">
         <header>
           <h1 className="text-[32px] font-bold max-[400px]:text-[24px]">
             Customize your links
@@ -83,7 +83,7 @@ export default function Links() {
           </button>
         )}
         <form
-          className="flex h-auto flex-col justify-between"
+          className="flex min-h-[600px] flex-col justify-between max-[320px]:items-center max-[1252px]:min-h-[550px] max-[856px]:min-h-[525px] max-[778px]:min-h-[464px] max-md:min-h-[600px]"
           onSubmit={(e) => {
             handleSubmit(e);
           }}
@@ -106,11 +106,11 @@ export default function Links() {
               ))}
             </ul>
           ) : (
-            <div className="flex flex-col gap-y-8 bg-[#FAFAFA] items-center text-center p-20 rounded-xl">
+            <div className="w-full max-h-[469px] flex flex-col flex-1 gap-y-8 bg-[#FAFAFA] items-center text-center p-10 rounded-xl max-[1000px]:px-2 max-md:p-4 max-md:py-16">
               <Image src={empty} alt="Empty image" />
 
-              <h1 className="text-[32px] font-bold">Let's get you started</h1>
-              <p className="text-gray leading-6 w-[488px]">
+              <h1 className="text-[32px] font-bold max-[1000px]:text-[26px]">Let's get you started</h1>
+              <p className="text-gray leading-6 max-w-[488px] max-[1000px]:text-sm">
                 Use the “Add new link” button to get started. Once you have more
                 than one link, you can reorder and edit them. We’re here to help
                 you share your profiles with everyone!
@@ -119,7 +119,7 @@ export default function Links() {
           )}
 
           <div
-            className="w-full right-10 max-[320px]:right-[14px] bottom-7 max-md:w-[90%] max-md:right-1/4 max-[320px]:translate-x-0  max-md:translate-x-[22%] absolute flex flex-col justify-end items-end  transition-all duration-100"
+            className="w-full flex flex-col justify-end items-end transition-all duration-100"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
@@ -129,7 +129,7 @@ export default function Links() {
               </p>
             )}
             <button
-              className="btn-primary max-md:w-full max-md:justify-center mt-4"
+              className="btn-primary max-md:w-full mt-6 mb-3"
               type="submit"
               disabled={isLoading || links.length <= 0 || !isEdited || isDemo}
             >

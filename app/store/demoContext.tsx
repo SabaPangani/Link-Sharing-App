@@ -12,7 +12,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isMouseEntered, setIsMouseEntered] = React.useState(false);
 
   React.useEffect(() => {
-    setIsDemo(sessionStorage.getItem("demo") ? true : false);
+    setIsDemo(sessionStorage.getItem("demo") == "true" ? true : false);
     console.log(isDemo);
   }, []);
 
