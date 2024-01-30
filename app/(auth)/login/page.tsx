@@ -21,7 +21,7 @@ export default function Login() {
     setError(false);
     e.preventDefault();
     setIsLoading(true);
-    const email = emailRef?.current.value;
+    const email = emailRef?.current.value.toLowerCase();
     const password = passwordRef?.current?.value;
     try {
       const res = await signIn("credentials", {

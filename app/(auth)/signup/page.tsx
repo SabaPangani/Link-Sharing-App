@@ -22,7 +22,7 @@ export default function Signup() {
     setIsLoading(true);
     setisWeakPassword(false);
     passwordsDontMatchRef.current.style.display = "none";
-    const email = emailRef.current.value;
+    const email = emailRef.current.value.toLowerCase();
     const password = passwordRef.current.value;
 
     try {
