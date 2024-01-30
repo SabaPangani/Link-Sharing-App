@@ -1,10 +1,17 @@
 "use client";
 import logo from "@/public/logo.svg";
+import { Metadata } from "next";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+export const metadata: Metadata = {
+  title: "Demo",
+  description: "Preview as demo",
+};
+
 export default function ViewAsDemo() {
   const router = useRouter();
   const [showDemo, setShowDemo] = useState(true);
