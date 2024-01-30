@@ -83,7 +83,7 @@ export default function ProfileDetails() {
           </p>
         </header>
         <form
-          className="flex flex-col gap-y-10 h-full max-md:pb-10"
+          className="flex flex-col gap-y-10 h-full max-md:pb-10 max-[454px]:gap-y-2"
           onSubmit={handleSubmit}
         >
           <UploadImage url={imageUrl} onSetImageUrl={setImageUrl} />
@@ -130,7 +130,7 @@ export default function ProfileDetails() {
             </div>
           </div>
           <div
-            className="w-full right-10 max-[430px]:-bottom-5 max-[320px]:right-[14px] bottom-7 max-md:w-[90%] max-md:right-1/4 max-[320px]:translate-x-0  max-md:translate-x-[22%] absolute flex flex-col justify-end items-end  transition-all duration-100"
+            className="w-full right-10 max-[430px]:bottom-5 max-[320px]:right-[14px] bottom-7 max-md:w-[90%] max-md:right-1/4 max-[320px]:translate-x-0  max-md:translate-x-[22%] absolute flex flex-col justify-end items-end transition-all duration-100"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
