@@ -11,6 +11,7 @@ import Loader from "@/components/Loader";
 import ResponseModal from "@/components/ResponseModal";
 import save from "@/public/save.svg";
 import { useDemo } from "@/app/hooks/useDemo";
+import { signOut } from "next-auth/react";
 
 export default function Links() {
   const {
@@ -48,6 +49,11 @@ export default function Links() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSignout = async () => {
+    sessionStorage.clear();
+    await signOut();
   };
 
   return (
@@ -109,7 +115,9 @@ export default function Links() {
             <div className="w-full max-h-[469px] flex flex-col flex-1 gap-y-8 bg-[#FAFAFA] items-center text-center p-10 rounded-xl max-[1000px]:px-2 max-md:p-4 max-md:py-16">
               <Image src={empty} alt="Empty image" />
 
-              <h1 className="text-[32px] font-bold max-[1000px]:text-[26px]">Let's get you started</h1>
+              <h1 className="text-[32px] font-bold max-[1000px]:text-[26px]">
+                Let's get you started
+              </h1>
               <p className="text-gray leading-6 max-w-[488px] max-[1000px]:text-sm">
                 Use the “Add new link” button to get started. Once you have more
                 than one link, you can reorder and edit them. We’re here to help
@@ -124,8 +132,12 @@ export default function Links() {
             onMouseLeave={handleMouseLeave}
           >
             {isMouseEntered && isDemo && (
-              <p className="text-purple font-semibold text-xs bg-light-purple rounded-md px-3 py-2">
-                For full access register
+              <p
+                className="text-purple font-semibold text-xs bg-light-purple rounded-md px-3 py-2"
+                onClick={handleSignout}
+              >
+                For full access{" "}
+                <span className="underline cursor-pointer">Register</span>
               </p>
             )}
             <button

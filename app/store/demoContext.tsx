@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { DemoContextType } from "../shared/types/Demo";
+import { useSession } from "next-auth/react";
 
 export const DemoContext = React.createContext<DemoContextType | null>(null);
 
@@ -10,11 +11,11 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isDemo, setIsDemo] = React.useState(false);
   const [isMouseEntered, setIsMouseEntered] = React.useState(false);
-
+  const { data: session } = useSession();
   React.useEffect(() => {
-    setIsDemo(sessionStorage.getItem("demo") == "true" ? true : false);
-    console.log(isDemo);
-  }, []);
+    setIsDemo(sessionStorage.getItem("demo") === "true" ? true : false);
+    console.log("demo ", isDemo);
+  }, [session]);
 
   const handleMouseEnter = () => {
     setIsMouseEntered(true);

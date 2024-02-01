@@ -12,7 +12,7 @@ export default function Card() {
 
   const handleSignOut = async () => {
     localStorage.removeItem("links");
-    sessionStorage.removeItem("demo");
+    sessionStorage.clear();
     await signOut();
   };
   return (

@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { useLinks } from "@/app/hooks/useLinks";
 import { LinkInput } from "./LinkInput";
 import { ILink } from "@/app/shared/types/Link";
+import { useDemo } from "@/app/hooks/useDemo";
 const platforms = [
   "Github",
   "Frontend Mentor",
@@ -41,19 +42,27 @@ export default function Link({ id, platform, url, order }: ILink) {
     setOpen(false);
   };
 
+  const { isDemo } = useDemo()!;
   return (
     <div className="bg-[#FAFAFA] flex flex-col p-5 gap-y-2 rounded-xl">
       <header className="flex flex-row justify-between text-gray">
         <h1 className="font-bold">
           <span className="font-medium">=</span> Link #{order}
         </h1>
-        <button
-          onClick={() => {
-            removeLink(id);
-          }}
-        >
-          Remove
-        </button>
+        {!isDemo && (
+          <button
+            onClick={() => {
+              removeLink(id);
+            }}
+          >
+            Remove
+          </button>
+        )}
+        {isDemo && (
+          <div>
+            <button>Remove</button>
+          </div>
+        )}
       </header>
       <div className="flex flex-col gap-y-3">
         <div className="w-full relative">

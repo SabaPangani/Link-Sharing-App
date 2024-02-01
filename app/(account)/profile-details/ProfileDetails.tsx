@@ -5,7 +5,7 @@ import person from "@/public/person.svg";
 import UploadImage from "./UploadImage";
 import { Input } from "@/components/Input";
 import { FormEventHandler, useEffect, useRef, useState } from "react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import ResponseModal from "@/components/ResponseModal";
 import { useLinks } from "@/app/hooks/useLinks";
 import save from "@/public/save.svg";
@@ -69,6 +69,10 @@ export default function ProfileDetails() {
       setIsLoading(false);
       console.error(err);
     }
+  };
+  const handleSignout = async () => {
+    sessionStorage.clear()
+    await signOut();
   };
 
   return (
@@ -135,8 +139,12 @@ export default function ProfileDetails() {
             onMouseLeave={handleMouseLeave}
           >
             {isMouseEntered && isDemo && (
-              <p className="text-purple font-semibold text-xs bg-light-purple rounded-md px-3 py-2">
-                For full access register
+              <p
+                className="text-purple font-semibold text-xs bg-light-purple rounded-md px-3 py-2"
+                onClick={handleSignout}
+              >
+                For full access{" "}
+                <span className="underline cursor-pointer">Register</span>
               </p>
             )}
             <button

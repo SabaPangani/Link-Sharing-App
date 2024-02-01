@@ -35,7 +35,7 @@ export default function Login() {
       }
 
       router.push("/profile-links");
-
+      sessionStorage.setItem("demo", "false");
       setIsLoading(false);
     } catch (err: any) {
       setError(true);
